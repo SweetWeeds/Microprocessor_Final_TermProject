@@ -19,27 +19,13 @@ void init_rti(int s)
 	Crg.crgint.byte |= 0b10000000;		//리얼타임 인터럽트 enable
 }
 
-void rti_service_one_sec(void) {
-
-}
-
+/**
+ * 10ms마다 호출: 엘리베이터의 층이 1/1000만큼 이동 (1층 이동에 10초 소요)
+ */
 void rti_service_ten_milli_sec() {
     u32 delta = (TargetFloor == CurrentFloor ? 0 : (TargetFloor > CurrentFloor ? +1 : -1));
     if (delta) {
 	CurrentFloor += delta;
-    }
-}
-
-/**
- * 0.1초마다 호출
- */
-void rti_service_zero_point_one_sec(void) {
-    static u32 count = 0;
-    // 이동중인 경우
-    if (CurrentMode == ONE_TWO || CurrentMode == TWO_ONE || CurrentMode == ONE_TWO) {
-        if (count >= ONE_FLOOR_MOVING_TIME) {
-            count = 0;
-        }
     }
 }
 
@@ -50,22 +36,14 @@ void rti_service_zero_point_one_sec(void) {
 /* 0.5초 마다 rti_handler 실행 */
 void rti_handler(void)
 {
-    static u32 os_count = 0;
-    static u32 zpos_count = 0;
+    static u32 tms_count = 0;
 	
     os_count++;
     zpos_count++;
 
-    if (os_count >= ONE_SEC) {
-        // 1초마다 실행
-        rti_service_one_sec();
-	os_count = 0;
-    }
-
-    if (zpos_count >= ZERO_POINT_ONE_SEC) {
-        // 0.1초마다 실행
-        rti_service_zero_point_one_sec();
-        zpos_count = 0;
+    if (tms_count >= TEN_MILLI_SEC) {
+	rti_service_zero_point_one_sec();
+	tms_count = 0;
     }
 
     // clear flag
