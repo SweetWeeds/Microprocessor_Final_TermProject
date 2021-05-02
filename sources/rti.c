@@ -37,9 +37,7 @@ void rti_service_ten_milli_sec() {
 void rti_handler(void)
 {
     static u32 tms_count = 0;
-	
-    os_count++;
-    zpos_count++;
+    tms_count++;
 
     if (tms_count >= TEN_MILLI_SEC) {
 	rti_service_zero_point_one_sec();
