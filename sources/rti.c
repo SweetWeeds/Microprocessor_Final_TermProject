@@ -20,15 +20,14 @@ void init_rti(int s)
 }
 
 void rti_service_one_sec(void) {
+
+}
+
+void rti_service_ten_milli_sec() {
     u32 delta = (TargetFloor == CurrentFloor ? 0 : (TargetFloor > CurrentFloor ? +1 : -1));
     if (delta) {
 	CurrentFloor += delta;
     }
-}
-
-void rti_service_ten_milli_sec() {
-    u8 sign = TargetFloor > CurrentFloor ? +1 : -1;
-    
 }
 
 /**
@@ -51,17 +50,17 @@ void rti_service_zero_point_one_sec(void) {
 /* 0.5초 마다 rti_handler 실행 */
 void rti_handler(void)
 {
-	static u32 os_count = 0;
+    static u32 os_count = 0;
     static u32 zpos_count = 0;
 	
-	os_count++;
+    os_count++;
     zpos_count++;
 
-	if (os_count >= ONE_SEC) {
+    if (os_count >= ONE_SEC) {
         // 1초마다 실행
-		rti_service_one_sec();
-  		os_count = 0;
-	}
+        rti_service_one_sec();
+	os_count = 0;
+    }
 
     if (zpos_count >= ZERO_POINT_ONE_SEC) {
         // 0.1초마다 실행
@@ -69,6 +68,6 @@ void rti_handler(void)
         zpos_count = 0;
     }
 
-	// clear flag
+    // clear flag
     Crg.crgflg.bit.rtif = 1;    // 실시간 인터럽트 플래그 초기화
 }
