@@ -2,6 +2,7 @@
 
 u32 TargetFloor = FLOOR_ONE;	// 가고자 하는 층
 u32 CurrentFloor = FLOOR_ONE;	// 현재 층 (1층: 1000, 1~2층 사이: 1001~1999 ...)
+u32 tmpFloor = FLOOR_ONE;       // 버퍼의 값을 임시 저장
 DataFrame* df = NULL;
 unsigned char RX[RX_BUFFER_SIZE];
 
@@ -35,37 +36,36 @@ void main() {
     // DataFrame 테이블 초기화
     InitFormatTable();
 
+    //Insert Application Software Here.
+    for (;;) {
+	// 현재 상태 체크
+	if (CurrentMode == TargetMode) {
+	    // 정지 중
+	    tmpFloor = QueuePop();
+	    if (tmpFloor != 0) {
+		TargetFloor = tmpFloor;
+	    }
+	}
 
-	//Insert Application Software Here.
-	for (;;) {
-        // 현재 상태 체크
-        if (CurrentMode >= ONE_TWO) {
-            // 이동 중
-
-        }
-        else {
-
-        }
-
-        // 큐에서 데이터 읽어오기
-        df = QueuePop();
-        // 널 포인터 체크
-        if (df) {
-            //set_inst_register(CODE_CLR_DISP);
-            // 명령어 처리
-            switch (df->groupnum) {
-            case GROUP_STATE:
-                STATE_CONTROL(df);
-                break;
-            case GROUP_PAUSE:
-                PAUSE_CONTROL(df);
-                break;
-            case GROUP_BUFFER:
-                BUFFER_CONTROL(df);
-                break;
-            }
+	// 큐에서 데이터 읽어오기
+	df = QueuePop();
+	// 널 포인터 체크
+	if (df) {
+	//set_inst_register(CODE_CLR_DISP);
+	// 명령어 처리
+	switch (df->groupnum) {
+	    case GROUP_STATE:
+		STATE_CONTROL(df);
+		break;
+	    case GROUP_PAUSE:
+		PAUSE_CONTROL(df);
+		break;
+	    case GROUP_BUFFER:
+		BUFFER_CONTROL(df);
+		break;
+	    }
             free(df);
-            df = NULL;
-        }
+	    df = NULL;
+	}
     }
 }
