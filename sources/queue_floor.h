@@ -18,9 +18,9 @@ struct _FloorNode {
 typedef struct _FloorNode FloorNode;
 
 void FloorQueuePush(u32 data);
-u32 FloorQueuePop();
-u32 FloorQueueFront();
-void FloorQueueClear();
+u32 QueueFloorPop();
+u32 QueueFloorFront();
+void QueueFloorClear();
 
 #endif /* QUEUE_FLOOR_H */
 
