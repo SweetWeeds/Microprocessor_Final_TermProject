@@ -1,6 +1,7 @@
 #include "rti.h"
 
-extern u8 CurrentMode;
+extern u32 TargetFloor;	// ê°€ê³ ì í•˜ëŠ” ì¸µ
+extern u32 CurrentFloor;	// í˜„ì¬ ì¸µ (1ì¸µ: 1000, 1~2ì¸µ ì‚¬ì´: 1001~1999 ...)
 int scaler;
 int i = 0;
 int pin = 0x01;
@@ -9,25 +10,33 @@ int pin = 0x01;
 // eg) s=2000 -> 0.5*2000 = 1s
 
 /*************************************************/
-/*  ¸®¾óÅ¸ÀÓ ÀÎÅÍ·´Æ®¸¦ ÃÊ±âÈ­ ÇÑ´Ù.*/
+/*  ë¦¬ì–¼íƒ€ì„ ì¸í„°ëŸ½íŠ¸ë¥¼ ì´ˆê¸°í™” í•œë‹¤.*/
 /*************************************************/
 void init_rti(int s)
 {
 	scaler = s;
-	Crg.rtictl.byte = DEFAULT_TIME_OUT;     //¸®¾óÅ¸ÀÓ ÀÎÅÍ·´Æ®ÀÇ ¼Óµµ °áÁ¤(0.5ms ·Î ÇÏ½Ã¿À)
-	Crg.crgint.byte |= 0b10000000;		//¸®¾óÅ¸ÀÓ ÀÎÅÍ·´Æ® enable
+	Crg.rtictl.byte = DEFAULT_TIME_OUT;     //ë¦¬ì–¼íƒ€ì„ ì¸í„°ëŸ½íŠ¸ì˜ ì†ë„ ê²°ì •(0.5ms ë¡œ í•˜ì‹œì˜¤)
+	Crg.crgint.byte |= 0b10000000;		//ë¦¬ì–¼íƒ€ì„ ì¸í„°ëŸ½íŠ¸ enable
 }
 
 void rti_service_one_sec(void) {
+    u32 delta = (TargetFloor == CurrentFloor ? 0 : (TargetFloor > CurrentFloor ? +1 : -1));
+    if (delta) {
+	CurrentFloor += delta;
+    }
+}
 
+void rti_service_ten_milli_sec() {
+    u8 sign = TargetFloor > CurrentFloor ? +1 : -1;
+    
 }
 
 /**
- * 0.1ÃÊ¸¶´Ù È£Ãâ
+ * 0.1ì´ˆë§ˆë‹¤ í˜¸ì¶œ
  */
 void rti_service_zero_point_one_sec(void) {
     static u32 count = 0;
-    // ÀÌµ¿ÁßÀÎ °æ¿ì
+    // ì´ë™ì¤‘ì¸ ê²½ìš°
     if (CurrentMode == ONE_TWO || CurrentMode == TWO_ONE || CurrentMode == ONE_TWO) {
         if (count >= ONE_FLOOR_MOVING_TIME) {
             count = 0;
@@ -36,10 +45,10 @@ void rti_service_zero_point_one_sec(void) {
 }
 
 /*************************************************/
-/*  ¸®¾óÅ¸ÀÓ ÀÎÅÍ·´Æ®°¡ ¹ß»ıÇÒ ¶§ÀÇ µ¿ÀÛÀ» Á¤ÀÇÇÑ´Ù. */
+/*  ë¦¬ì–¼íƒ€ì„ ì¸í„°ëŸ½íŠ¸ê°€ ë°œìƒí•  ë•Œì˜ ë™ì‘ì„ ì •ì˜í•œë‹¤. */
 /*************************************************/
 
-/* 0.5ÃÊ ¸¶´Ù rti_handler ½ÇÇà */
+/* 0.5ì´ˆ ë§ˆë‹¤ rti_handler ì‹¤í–‰ */
 void rti_handler(void)
 {
 	static u32 os_count = 0;
@@ -49,17 +58,17 @@ void rti_handler(void)
     zpos_count++;
 
 	if (os_count >= ONE_SEC) {
-        // 1ÃÊ¸¶´Ù ½ÇÇà
+        // 1ì´ˆë§ˆë‹¤ ì‹¤í–‰
 		rti_service_one_sec();
   		os_count = 0;
 	}
 
     if (zpos_count >= ZERO_POINT_ONE_SEC) {
-        // 0.1ÃÊ¸¶´Ù ½ÇÇà
+        // 0.1ì´ˆë§ˆë‹¤ ì‹¤í–‰
         rti_service_zero_point_one_sec();
         zpos_count = 0;
     }
 
 	// clear flag
-    Crg.crgflg.bit.rtif = 1;    // ½Ç½Ã°£ ÀÎÅÍ·´Æ® ÇÃ·¡±× ÃÊ±âÈ­
+    Crg.crgflg.bit.rtif = 1;    // ì‹¤ì‹œê°„ ì¸í„°ëŸ½íŠ¸ í”Œë˜ê·¸ ì´ˆê¸°í™”
 }
