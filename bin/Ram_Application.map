@@ -1,0 +1,179 @@
+*** EVALUATION ************************************************************************************************
+*********************************************************************************************
+LINKING FAILED
+The linking process failed in some stage.
+Depending on the phase the linker failed, part of the information contained in this map file may be inaccurate or wrong.
+If the linking failed before the allocation phase finished, then the addresses might be inaccurate.
+Also summary information like the code size is likely to be misleading.
+---------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------
+
+PROGRAM "G:\내 드라이브\3.학교자료\4학년 1학기\마이크로프로세서실험\과제\기말과제\코드\Microprocessor_Final_TermProject\bin\Ram_Application.abs"
+
+*********************************************************************************************
+TARGET SECTION
+---------------------------------------------------------------------------------------------
+Processor   : Freescale HC12
+Memory Model: SMALL
+File Format : ELF (no debug info)
+Linker      : SmartLinker V-5.0.52 Build 15249, Sep  7 2015
+
+*********************************************************************************************
+FILE SECTION
+---------------------------------------------------------------------------------------------
+HEAP.C.o (ansis.lib)                    Model: SMALL,         Lang: ANSI-C,        Compiler Version: ANSI-C/cC++ Compiler for HC12 V-5.0.46 Build 15249, Sep  7 2015
+ALLOC.C.o (ansis.lib)                   Model: SMALL,         Lang: ANSI-C,        Compiler Version: ANSI-C/cC++ Compiler for HC12 V-5.0.46 Build 15249, Sep  7 2015
+rtshc12.c.o (ansis.lib)                 Model: SMALL,         Lang: ANSI-C,        Compiler Version: ANSI-C/cC++ Compiler for HC12 V-5.0.46 Build 15249, Sep  7 2015
+START12.C.o                             Model: SMALL,         Lang: ANSI-C,        Compiler Version: ANSI-C/cC++ Compiler for HC12 V-5.0.46 Build 15249, Sep  7 2015
+main.c.o                                Model: SMALL,         Lang: ANSI-C,        Compiler Version: ANSI-C/cC++ Compiler for HC12 V-5.0.46 Build 15249, Sep  7 2015
+per_DP256_K79X.c.o                      Model: SMALL,         Lang: ANSI-C,        Compiler Version: ANSI-C/cC++ Compiler for HC12 V-5.0.46 Build 15249, Sep  7 2015
+
+*********************************************************************************************
+STARTUP SECTION
+---------------------------------------------------------------------------------------------
+
+*********************************************************************************************
+SECTION-ALLOCATION SECTION
+Section Name                    Size  Type     From       To       Segment
+---------------------------------------------------------------------------------------------
+.abs_section_0                    48   N/I        0x0       0x2F   .absSeg0
+.abs_section_30                    4   N/I       0x30       0x33   .absSeg1
+.abs_section_34                   12   N/I       0x34       0x3F   .absSeg2
+.abs_section_40                   64   N/I       0x40       0x7F   .absSeg3
+.abs_section_80                   32   N/I       0x80       0x9F   .absSeg4
+.abs_section_a0                   40   N/I       0xA0       0xC7   .absSeg5
+.abs_section_c8                    8   N/I       0xC8       0xCF   .absSeg6
+.abs_section_d0                    8   N/I       0xD0       0xD7   .absSeg7
+.abs_section_d8                    8   N/I       0xD8       0xDF   .absSeg8
+.abs_section_e0                    8   N/I       0xE0       0xE7   .absSeg9
+.abs_section_e8                    8   N/I       0xE8       0xEF   .absSeg10
+.abs_section_f0                    8   N/I       0xF0       0xF7   .absSeg11
+.abs_section_f8                    8   N/I       0xF8       0xFF   .absSeg12
+.abs_section_100                  16   N/I      0x100      0x10F   .absSeg13
+.abs_section_110                  12   N/I      0x110      0x11B   .absSeg14
+.abs_section_120                  32   N/I      0x120      0x13F   .absSeg15
+.abs_section_140                  64   N/I      0x140      0x17F   .absSeg16
+.abs_section_180                  64   N/I      0x180      0x1BF   .absSeg17
+.abs_section_1c0                  64   N/I      0x1C0      0x1FF   .absSeg18
+.abs_section_200                  64   N/I      0x200      0x23F   .absSeg19
+.abs_section_240                  48   N/I      0x240      0x26F   .absSeg20
+.abs_section_280                  64   N/I      0x280      0x2BF   .absSeg21
+
+Summary of section sizes per section type:
+NO_INIT (N/I):         2AC (dec:      684)
+
+*********************************************************************************************
+VECTOR-ALLOCATION SECTION
+    Address     InitValue   InitFunction
+---------------------------------------------------------------------------------------------
+
+*********************************************************************************************
+OBJECT-ALLOCATION SECTION
+     Name               Module                 Addr   hSize   dSize     Ref    Section   RLIB
+---------------------------------------------------------------------------------------------
+MODULE:                 -- HEAP.C.o (ansis.lib) --
+- PROCEDURES:
+     _heapcrash_                                  0'Error       C      12       0   .text       
+- VARIABLES:
+     _heap_                                       0'Error     7D0    2000       0   HEAP_SEGMENT
+MODULE:                 -- ALLOC.C.o (ansis.lib) --
+- PROCEDURES:
+     free                                         0'Error      C4     196       0   .text       
+- VARIABLES:
+     heap_end                                     0'Error       2       2       0   .bss        
+     free_ptr                                     0'Error       2       2       0   .bss        
+MODULE:                 -- rtshc12.c.o (ansis.lib) --
+- PROCEDURES:
+     _CASE_CHECKED_BYTE                           0'Error      14      20       0   RUNTIME     
+- VARIABLES:
+MODULE:                 -- START12.C.o --
+- PROCEDURES:
+     Init                                         0'Error      29      41       0   .text       
+     _Startup                                     0'Error      10      16       0   .text       
+- VARIABLES:
+     _startupData                                 0'Error       B      11       0   STARTUP_DATA
+- LABELS:
+     __SEG_END_SSTACK                             0'Error       0       0       0               
+MODULE:                 -- main.c.o --
+- PROCEDURES:
+     main                                         0'Error      65     101       0   .text       
+- VARIABLES:
+     STRING.SCI.OK.1                              0'Error       7       7       0   .rodata1    
+     df                                           0'Error       2       2       0   .bss        
+     RX                                           0'Error      23      35       0   .common     
+MODULE:                 -- per_DP256_K79X.c.o --
+- PROCEDURES:
+- VARIABLES:
+     Regs                                         0      30      48       0   .abs_section_0
+     Page                                        30       4       4       0   .abs_section_30
+     Crg                                         34       C      12       0   .abs_section_34
+     Tim0                                        40      40      64       0   .abs_section_40
+     Atd0                                        80      20      32       0   .abs_section_80
+     Pwm                                         A0      28      40       0   .abs_section_a0
+     Sci0                                        C8       8       8       0   .abs_section_c8
+     Sci1                                        D0       8       8       0   .abs_section_d0
+     Spi0                                        D8       8       8       0   .abs_section_d8
+     Iic                                         E0       8       8       0   .abs_section_e0
+     Bdlc                                        E8       8       8       0   .abs_section_e8
+     Spi1                                        F0       8       8       0   .abs_section_f0
+     Spi2                                        F8       8       8       0   .abs_section_f8
+     Flash                                      100      10      16       0   .abs_section_100
+     Eeprom                                     110       C      12       0   .abs_section_110
+     Atd1                                       120      20      32       0   .abs_section_120
+     Can0                                       140      40      64       0   .abs_section_140
+     Can1                                       180      40      64       0   .abs_section_180
+     Can2                                       1C0      40      64       0   .abs_section_1c0
+     Can3                                       200      40      64       0   .abs_section_200
+     Pim                                        240      30      48       0   .abs_section_240
+     Can4                                       280      40      64       0   .abs_section_280
+
+*********************************************************************************************
+MODULE STATISTIC
+  Name                                      Data   Code  Const
+---------------------------------------------------------------------------------------------
+
+*********************************************************************************************
+SECTION USE IN OBJECT-ALLOCATION SECTION
+---------------------------------------------------------------------------------------------
+
+*********************************************************************************************
+OBJECT LIST SORTED BY ADDRESS
+     Name                                      Addr   hSize   dSize     Ref    Section   RLIB
+---------------------------------------------------------------------------------------------
+
+*********************************************************************************************
+UNUSED-OBJECTS SECTION
+---------------------------------------------------------------------------------------------
+NOT USED PROCEDURES
+ALLOC.C.o (ansis.lib):
+  malloc calloc realloc 
+rtshc12.c.o (ansis.lib):
+  _BSHL _BSHRS _BSHRU _BDIVMODU _BDIVMODS _ISHL _ISHRU _ISHRS _LSHL _LSHRU 
+  _LSHRS _LADD _LSUB _LAND _LOR _LXOR _LCMP _LCMP_P _LCMP_PP _LNEG _LCOM _LINC 
+  _LDEC _LMUL _LMULU16x32 _LMULS16x32 _lDivMod _LDIVU _NEG_P _LDIVS _LMODU 
+  _LMODS _ILSEXT _COPY _CASE_DIRECT _CASE_DIRECT_BYTE _CASE_CHECKED 
+  _CASE_SEARCH _CASE_SEARCH_BYTE _CASE_SEARCH_8 _CASE_SEARCH_8_BYTE _FCALL 
+  _FPCMP 
+NOT USED VARIABLES
+rtshc12.c.o (ansis.lib):
+  _PowOfTwo_8 _PowOfTwo_16 _PowOfTwo_32 errno 
+main.c.o:
+  CurrentMode 
+
+*********************************************************************************************
+COPYDOWN SECTION
+---------------------------------------------------------------------------------------------
+
+*********************************************************************************************
+OBJECT-DEPENDENCIES SECTION
+---------------------------------------------------------------------------------------------
+
+*********************************************************************************************
+STATISTIC SECTION
+---------------------------------------------------------------------------------------------
+
+ExeFile:
+--------
+Number of blocks to be downloaded: 0
+Total size of all blocks to be downloaded: 0
+

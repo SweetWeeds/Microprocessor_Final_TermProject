@@ -1,0 +1,9 @@
+{
+    "files.associations": {
+        "dataframe.h": "c",
+        "control.h": "c",
+        "rti.h": "c",
+        "main.h": "c",
+        "interrupt.h": "c"
+    }
+}
