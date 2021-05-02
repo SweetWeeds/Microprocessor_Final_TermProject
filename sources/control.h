@@ -11,9 +11,9 @@ void PAUSE_CONTROL(DataFrame* df);
 void BUFFER_CONTROL(DataFrame* df);
 
 // 모드 지정
-#define FLOOR_ONE   100   // 1층
-#define FLOOR_TWO   200   // 2층
-#define FLOOR_THREE 300   // 3층
+#define FLOOR_ONE   1000   // 1층
+#define FLOOR_TWO   2000   // 2층
+#define FLOOR_THREE 3000   // 3층
 
 #define ONE_TWO     12   // 1층 -> 2층
 #define TWO_ONE     21   // 2층 -> 1층
