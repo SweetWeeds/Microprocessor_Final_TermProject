@@ -55,7 +55,7 @@ u32 QueueFloorPop() {
 	}
 	// 헤드가 빈 경우
 	else {
-		return NULL;
+		return 0;
 	}
 }
 
