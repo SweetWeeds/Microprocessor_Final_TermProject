@@ -27,7 +27,7 @@ void PAUSE_CONTROL(DataFrame* df) {
 void BUFFER_CONTROL(DataFrame* df) {
     if (df->cmdnum == CMD_BUFFER_CTRL_ADD) {
         // 버퍼 추가
-        FloorQueuePush();
+        FloorQueuePush((df->data[0] - '0') * 1000);
     }
     else if (df->cmdnum == CMD_BUFFER_CTRL_CLR) {
         // 버퍼 비우기
