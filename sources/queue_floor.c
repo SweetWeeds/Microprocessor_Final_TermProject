@@ -1,11 +1,11 @@
 /* queue.c */
 
-#include "queue.h"
+#include "queue_floor.h"
 
 FloorNode* Head = NULL;
 FloorNode* Tail = NULL;
 
-void QueuePush(u32 data) {
+void QueueFloorPush(u32 data) {
 	FloorNode* newNode = (FloorNode*)malloc(sizeof(Node));
 	// 동적할당 실패 체크
 	if (newNode == NULL) {
@@ -35,7 +35,7 @@ void QueuePush(u32 data) {
 	}
 }
 
-u32 QueuePop() {
+u32 QueueFloorPop() {
 	// 헤드가 비어있지 않은 경우
 	if (Head != NULL) {
 		FloorNode* tmpNode = Head;
@@ -60,7 +60,7 @@ u32 QueuePop() {
 }
 
 // 큐 앞 조회
-u32 QueueFront() {
+u32 QueueFloorFront() {
 	// 헤드가 비어있지 않은 경우
 	if (Head != NULL) {
 		return Head->data;
@@ -71,4 +71,4 @@ u32 QueueFront() {
 	}
 }
 
-/* queue.c */
+/* queue_floor.c */
