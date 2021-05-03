@@ -60,6 +60,7 @@ void rti_service_ten_milli_sec() {
         }
         // 3. 모터 정지
         if (TargetFloor - DEACCELERATE_PERIOD2 <= CurrentFloor) {
+			set_7segment(CurrentFloor / 1000);
             disable_pwm();
         }
         // 4. 문 열기
@@ -74,10 +75,9 @@ void rti_service_ten_milli_sec() {
 		}
 		if (TargetFloor <= CurrentFloor) {
 			count = 0;
-			set_7segment(CurrentFloor / 1000);
 			isMoving = FALSE;
 		}
-    }
+	}
 }
 
 /*************************************************/
