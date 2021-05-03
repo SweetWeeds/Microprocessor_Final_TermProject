@@ -5,6 +5,12 @@
 FloorNode* HeadFloor = NULL;
 FloorNode* TailFloor = NULL;
 
+void QueueFloorClear() {
+	while (HeadFloor != NULL) {
+		QueueFloorPop();
+	}
+}
+
 void QueueFloorPush(u32 data) {
 	FloorNode* newNode = (FloorNode*)malloc(sizeof(FloorNode));
 	// 동적할당 실패 체크
