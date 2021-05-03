@@ -16,6 +16,12 @@
 #define ONE_FLOOR_MOVING_TIME         50 // 5초
 #define TWO_FLOOR_MOVING_TIME         100 // 10초
 
+// 시간 별 동작 정의
+#define ACCELERATE_PERIOD
+#define DEACCELERATE_PERIOD
+#define DOOR_OPEN
+#define DOOR_CLOSE
+
 typedef unsigned char u8;
 typedef unsigned int u32;
 
