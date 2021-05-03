@@ -5,7 +5,7 @@ extern char CurrentMode;
 void STATE_CONTROL(DataFrame* df) {
     if (df->cmdnum == CMD_STATE_CTRL_FLOOR && df->data[0] <= '3' && '1' <= df->data[0]) {
         // 층 수 변경
-        CurrentMode = df->data[0] - '0';
+        CurrentMode = (df->data[0] - '0') * 1000;
     }
     else if (df->cmdnum == CMD_STATE_UPDATE_PRINT) {
 
