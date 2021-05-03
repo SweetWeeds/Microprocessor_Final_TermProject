@@ -24,14 +24,24 @@ void init_rti(int s)
  */
 void rti_service_ten_milli_sec() {
     static u32 count = 0;
+    static u32 pwm_period = 254;	// 모터 주기
     u32 delta = (TargetFloor == CurrentFloor ? 0 : (TargetFloor > CurrentFloor ? +1 : -1));
     
     if (delta == 0) {
 	count = 0;
+	// 모터 정지
+	
     }
     else {
+	// 초기화 판별
+        if (count == 0) {
+            // 모터 방향 결정 & 초기화
+	    // 
+	}
 	CurrentFloor += delta;
 	count++;
+	// 모터 가속 & 감속
+	// 문 열기 & 닫기
     }
 }
 
