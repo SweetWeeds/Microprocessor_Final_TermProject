@@ -23,9 +23,15 @@ void init_rti(int s)
  * 10ms마다 호출: 엘리베이터의 층이 1/1000만큼 이동 (1층 이동에 10초 소요)
  */
 void rti_service_ten_milli_sec() {
+    static u32 count = 0;
     u32 delta = (TargetFloor == CurrentFloor ? 0 : (TargetFloor > CurrentFloor ? +1 : -1));
-    if (delta) {
+    
+    if (delta == 0) {
+	count = 0;
+    }
+    else {
 	CurrentFloor += delta;
+	count++;
     }
 }
 
