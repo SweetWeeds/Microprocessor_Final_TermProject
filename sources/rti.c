@@ -4,7 +4,7 @@ extern u32 TargetFloor;	// 가고자 하는 층
 extern u32 CurrentFloor;	// 현재 층 (1층: 1000, 1~2층 사이: 1001~1999 ...)
 extern u8 isMoving;
 u32 doorStatus = 0;
-unsigned char period = LOW_SPEED;
+//unsigned char period = LOW_SPEED;
 int i = 0;
 int pin = 0x01;
 
@@ -26,7 +26,7 @@ void init_rti(int s)
  */
 void rti_service_ten_milli_sec() {
     static u32 count = 0;
-    static u32 pwm_period = 254;	// 모터 주기
+    static u32 pwm_period = LOW_SPEED;	// 모터 주기
     u32 delta = (TargetFloor == CurrentFloor ? 0 : (TargetFloor > CurrentFloor ? +1 : -1));
     
     if (delta == 0) {
@@ -43,18 +43,18 @@ void rti_service_ten_milli_sec() {
         if (count == 0) {
             // 모터 방향 결정 & 초기화
             init_pwm(TargetFloor > CurrentFloor);
-            period = LOW_SPEED;
+            pwm_period = LOW_SPEED;
         }
         CurrentFloor += delta;
         count++;
         // 1. 모터 가속 (count가 홀수일때 호출)
         if (count <= ACCELERATE_PERIOD && count & 1) {
-            period++;
+            pwm_period++;
             set_pwm(period, period / 2);
         }
         // 2. 모터 감속 (count가 홀수일때 호출)
         if (TargetFloor - DEACCELERATE_PERIOD1 <= CurrentFloor && CurrentFloor < TargetFloor - DEACCELERATE_PERIOD2 && count & 1) {
-            period--;
+            pwm_period--;
             set_pwm(period, period / 2);
         }
         // 3. 모터 정지
@@ -86,7 +86,7 @@ void rti_handler(void)
     tms_count++;
 
     if (tms_count >= TEN_MILLI_SEC) {
-	rti_service_zero_point_one_sec();
+	if (isMoving) rti_service_zero_point_one_sec();
 	tms_count = 0;
     }
 
