@@ -67,9 +67,10 @@ void rti_service_ten_milli_sec() {
             set_door(doorStatus);
         }
         // 5. 문 닫기
-        else if (TargetFloor - DOOR_CLOSE <= CurrentFloor) {
+        else if (TargetFloor - DOOR_CLOSE <= CurrentFloor && (count % 100 == 0)) {
             doorStatus--;
-            count = 0;
+	    set_door(doorStatus);
+            //count = 0;
         }
     }
 }
