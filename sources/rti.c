@@ -40,8 +40,11 @@ void rti_service_ten_milli_sec() {
 	}
 	CurrentFloor += delta;
 	count++;
-	// 모터 가속 & 감속
-	// 문 열기 & 닫기
+	// 1. 모터 가속
+	// 2. 모터 감속
+	// 3. 모터 정지
+	// 4. 문 열기
+	// 5. 문 닫기
     }
 }
 
