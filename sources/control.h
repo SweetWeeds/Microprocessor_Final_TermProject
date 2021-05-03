@@ -6,6 +6,8 @@
 #include "dataframe.h"
 #include "queue_floor.h"
 #include "rti.h"
+#include "lcd.h"
+#include "seven_seg.h"
 
 void STATE_CONTROL(DataFrame* df);
 void PAUSE_CONTROL(DataFrame* df);
