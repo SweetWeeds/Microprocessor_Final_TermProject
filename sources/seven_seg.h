@@ -20,6 +20,7 @@ typedef enum {
 } DIRECTION;
 
 void init_seven_seg(void);
+void rotate_7seg(void);
 void set_7segment(unsigned int number);
 
 #endif /* SEVEN_SEG */
