@@ -1,33 +1,41 @@
 #include "led.h"
 
 /*******************************************************
- *  BAR-LED¿¡ »ç¿ëµÇ´Â Æ÷Æ®¸¦ ÃÊ±âÈ­ ÇÑ´Ù.               *
+ *  BAR-LEDì— ì‚¬ìš©ë˜ëŠ” í¬íŠ¸ë¥¼ ì´ˆê¸°í™” í•œë‹¤.               *
  *******************************************************/
 
 void init_led(void) {
-    // Æ÷Æ® B¿Í Æ÷Æ® M À» Ãâ·ÂÀ¸·Î ¼³Á¤
+    // í¬íŠ¸ Bì™€ í¬íŠ¸ M ì„ ì¶œë ¥ìœ¼ë¡œ ì„¤ì •
     Regs.ddrb.byte = DDRB_LED_MASK_BIT;
     Pim.ddrm.byte = DDRM_LED_MASK_BIT;
   
-    // Æ÷Æ® B¿Í Æ÷Æ® M ¿¡ ¿¬°áµÈ ¸ğµç LED¸¦ ²û
+    // í¬íŠ¸ Bì™€ í¬íŠ¸ M ì— ì—°ê²°ëœ ëª¨ë“  LEDë¥¼ ë”
     Regs.portb.byte = DDRB_LED_MASK_BIT;
     Pim.ptm.byte = DDRM_LED_MASK_BIT;
 }
 
 /*******************************************************
- *  10ºñÆ®ÀÇ ¼ıÀÚ¸¦ ÀÔ·ÂÇÏ¸é ±× °ªÀ» BAR-LED¿¡ Ãâ·ÂÇÑ´Ù.  *
+ *  10ë¹„íŠ¸ì˜ ìˆ«ìë¥¼ ì…ë ¥í•˜ë©´ ê·¸ ê°’ì„ BAR-LEDì— ì¶œë ¥í•œë‹¤.  *
  *  0b11110000 = OFF OFF OFF OFF ON ON ON ON           *
  *******************************************************/
 void set_led(unsigned int digit) {
     unsigned char upper_digit, lower_digit;
     digit = ~digit;
     
-    upper_digit = (digit & UPPER_TWO_BIT) >> 2; // 10 ºñÆ® Áß¿¡¼­ »óÀ§ 2 ºñÆ®ÀÇ °ªÀ» ÃßÃâ, 6,7ºñÆ® À§Ä¡·Î ÀÌµ¿
+    upper_digit = (digit & UPPER_TWO_BIT) >> 2; // 10 ë¹„íŠ¸ ì¤‘ì—ì„œ ìƒìœ„ 2 ë¹„íŠ¸ì˜ ê°’ì„ ì¶”ì¶œ, 6,7ë¹„íŠ¸ ìœ„ì¹˜ë¡œ ì´ë™
 
-    lower_digit = digit & LOWER_EIGHT_BIT;      // 10 ºñÆ® Áß¿¡¼­ ÇÏÀ§ 8 ºñÆ®ÀÇ °ª¸¸ ÃßÃâ
+    lower_digit = digit & LOWER_EIGHT_BIT;      // 10 ë¹„íŠ¸ ì¤‘ì—ì„œ í•˜ìœ„ 8 ë¹„íŠ¸ì˜ ê°’ë§Œ ì¶”ì¶œ
 
-    Pim.ptm.byte = upper_digit;     // »óÀ§ 2ºñÆ®ÀÇ °ªÀ» Æ÷Æ® M¿¡ Ãâ·Â
-    Regs.portb.byte = lower_digit;  // ÇÏÀ§ 8ºñÆ®ÀÇ °ªÀ» Æ÷Æ® B¿¡ Ãâ·Â
+    Pim.ptm.byte = upper_digit;     // ìƒìœ„ 2ë¹„íŠ¸ì˜ ê°’ì„ í¬íŠ¸ Mì— ì¶œë ¥
+    Regs.portb.byte = lower_digit;  // í•˜ìœ„ 8ë¹„íŠ¸ì˜ ê°’ì„ í¬íŠ¸ Bì— ì¶œë ¥
+}
+
+void door(unsigned int open) {
+    if (open == 0) set_led(0b11111111);
+    else if (open == 1) set_led(0b11100111);
+    else if (open == 2) set_led(0b11000011);
+    else if (open == 3) set_led(0b10000001);
+    else if (open == 4) set_led(0b00000000);
 }
 
 void set_led_counter(unsigned int cnt) {
