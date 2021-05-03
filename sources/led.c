@@ -30,7 +30,7 @@ void set_led(unsigned int digit) {
     Regs.portb.byte = lower_digit;  // 하위 8비트의 값을 포트 B에 출력
 }
 
-void door(unsigned int open) {
+void set_door(unsigned int open) {
     if (open == 0) set_led(0b11111111);
     else if (open == 1) set_led(0b11100111);
     else if (open == 2) set_led(0b11000011);
