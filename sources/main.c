@@ -37,6 +37,9 @@ void main() {
     // DataFrame 테이블 초기화
     InitFormatTable();
 
+	// RTI 초기화
+	init_rti();
+
     //Insert Application Software Here.
     for (;;) {
 	// 현재 상태 체크
