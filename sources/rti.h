@@ -25,7 +25,7 @@
 typedef unsigned char   u8;
 typedef unsigned int    u32;
 
-void init_rti(int s);
+void init_rti();
 void rti_service_ten_milli_sec();
 void rti_handler(void);
 
