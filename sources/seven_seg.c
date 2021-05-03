@@ -11,11 +11,19 @@ void init_seven_seg(void) {
     Pim.pth.byte = 0x00;
 }
 
-void rotate_7seg() {
+void rotate_7seg(u8 clockwise) {
     static u8 rotate = 0b1;
     Pim.pth.byte = rotate;
-    rotate <<= 1;
-    if (rotate > 0b100000) rotate = 0b1;
+    if (clockwise) {
+        // 시계 방향
+        rotate <<= 1;
+        if (rotate > 0b100000) rotate = 0b1;
+    }
+    else {
+        // 반시계 방향
+        rotate >>= 1;
+        if (rotate == 0b0) rotate = 0b100000;
+    }
 }
 
 /***************************************************************/
