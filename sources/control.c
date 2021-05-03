@@ -17,9 +17,11 @@ void PAUSE_CONTROL(DataFrame* df) {
     if (df->cmdnum == CMD_PAUSE_CTRL_PAUSE) {
         if (data == '0') {
             // 시작
+            rti_enable();
         }
         else if (data == '1') {
             // 일시정지
+            rti_disable();
         }
     }
 }
