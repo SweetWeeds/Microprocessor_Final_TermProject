@@ -3,6 +3,7 @@
 u32 TargetFloor = FLOOR_ONE;	// 가고자 하는 층
 u32 CurrentFloor = FLOOR_ONE;	// 현재 층 (1층: 1000, 1~2층 사이: 1001~1999 ...)
 u32 tmpFloor = FLOOR_ONE;       // 버퍼의 값을 임시 저장
+u8 isMoving = FALSE;
 DataFrame* df = NULL;
 unsigned char RX[RX_BUFFER_SIZE];
 
@@ -39,11 +40,12 @@ void main() {
     //Insert Application Software Here.
     for (;;) {
 	// 현재 상태 체크
-	if (CurrentMode == TargetMode) {
+	if (!isMoving) {
 	    // 정지 중
-	    tmpFloor = QueuePop();
+	    tmpFloor = QueueFloorPop();
 	    if (tmpFloor != 0) {
-		TargetFloor = tmpFloor;
+		    TargetFloor = tmpFloor;
+            isMoving = TRUE;
 	    }
 	}
 

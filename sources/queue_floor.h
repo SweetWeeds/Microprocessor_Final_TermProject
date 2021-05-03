@@ -17,10 +17,10 @@ struct _FloorNode {
 
 typedef struct _FloorNode FloorNode;
 
-void FloorQueuePush(u32 data);
+void QueueFloorPush(u32 data);
 u32 QueueFloorPop();
 u32 QueueFloorFront();
-void QueueFloorClear();
+//void QueueFloorClear();
 
 #endif /* QUEUE_FLOOR_H */
 

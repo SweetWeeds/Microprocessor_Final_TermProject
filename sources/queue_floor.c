@@ -2,11 +2,11 @@
 
 #include "queue_floor.h"
 
-FloorNode* Head = NULL;
-FloorNode* Tail = NULL;
+FloorNode* HeadFloor = NULL;
+FloorNode* TailFloor = NULL;
 
 void QueueFloorPush(u32 data) {
-	FloorNode* newNode = (FloorNode*)malloc(sizeof(Node));
+	FloorNode* newNode = (FloorNode*)malloc(sizeof(FloorNode));
 	// 동적할당 실패 체크
 	if (newNode == NULL) {
 		//ExceptionHandling(DynamicAllocFailed);
@@ -14,19 +14,19 @@ void QueueFloorPush(u32 data) {
 	}
 	newNode->data = data;
 	// 큐가 빈 경우
-	if (Head == NULL && Tail == NULL) {
+	if (HeadFloor == NULL && TailFloor == NULL) {
 		// 동적할당 성공 체크
-		Head = newNode;
-		Head->preNode = NULL;
-		Head->nextNode = NULL;
-		Tail = Head;
+		HeadFloor = newNode;
+		HeadFloor->preNode = NULL;
+		HeadFloor->nextNode = NULL;
+		TailFloor = HeadFloor;
 	}
 	// 큐가 비어있지 않은 경우
-	else if (Head != NULL && Tail != NULL) {
-		newNode->preNode = Tail;
+	else if (HeadFloor != NULL && TailFloor != NULL) {
+		newNode->preNode = TailFloor;
 		newNode->nextNode = NULL;
-		Tail->nextNode = newNode;
-		Tail = newNode;
+		TailFloor->nextNode = newNode;
+		TailFloor = newNode;
 	}
 	// 예외 처리 (잘못된 핸들링)
 	else {
@@ -37,18 +37,18 @@ void QueueFloorPush(u32 data) {
 
 u32 QueueFloorPop() {
 	// 헤드가 비어있지 않은 경우
-	if (Head != NULL) {
-		FloorNode* tmpNode = Head;
+	if (HeadFloor != NULL) {
+		FloorNode* tmpNode = HeadFloor;
 		u32 data = tmpNode->data;
 		// 헤드와 테일이 일치 (남은 노드가 하나)
-		if (Head == Tail) {
-			Head = NULL;
-			Tail = NULL;
+		if (HeadFloor == TailFloor) {
+			HeadFloor = NULL;
+			TailFloor = NULL;
 		}
 		// 헤드 != 테일 : 남은 노드가 2개 이상
 		else {
-			Head = Head->nextNode;
-			Head->preNode = NULL;
+			HeadFloor = HeadFloor->nextNode;
+			HeadFloor->preNode = NULL;
 		}
 		free(tmpNode);
 		return data;
@@ -62,12 +62,12 @@ u32 QueueFloorPop() {
 // 큐 앞 조회
 u32 QueueFloorFront() {
 	// 헤드가 비어있지 않은 경우
-	if (Head != NULL) {
-		return Head->data;
+	if (HeadFloor != NULL) {
+		return HeadFloor->data;
 	}
 	// 헤드가 빈 경우
 	else {
-		return NULL;
+		return 0;
 	}
 }
 

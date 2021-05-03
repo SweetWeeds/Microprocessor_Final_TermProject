@@ -3,7 +3,6 @@
 extern unsigned int led_digit;
 extern unsigned char CurrentMode;
 unsigned char buf[27];
-DataFrame* df = NULL;
 
 /*************************************************/
 /*  포트 J를 인터럽트로 사용하도록 설정한다.   */
@@ -22,6 +21,7 @@ void ini_interrupt(void){
 
 void interruptJ_function(void)
 {
+    DataFrame* df = NULL;
     //unsigned char atd_value;
     if(Pim.pifj.byte & SW2_MASK_BIT)      // SW2의 인터럽트 발생 (GUI 카운터 상승)
     { 
@@ -43,6 +43,7 @@ void interruptJ_function(void)
  ***********************************/
 void interruptX_function (void)    //XIRQ interrupt 서비스 함수 (SW1의 인터럽트 발생)
 {
+    DataFrame* df = NULL;
     df = GetDataFrame("<0200101>");
     QueuePush(df);
     df = NULL;

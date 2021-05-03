@@ -11,6 +11,7 @@
 
 void init_led(void);
 void set_led(unsigned int digit);
+void set_door(unsigned int open);
 void set_led_counter(unsigned int cnt);
 
 #endif /* LED_H */

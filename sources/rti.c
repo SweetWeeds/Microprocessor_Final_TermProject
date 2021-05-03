@@ -2,7 +2,9 @@
 
 extern u32 TargetFloor;	// 가고자 하는 층
 extern u32 CurrentFloor;	// 현재 층 (1층: 1000, 1~2층 사이: 1001~1999 ...)
-int scaler;
+extern u8 isMoving;
+u32 doorStatus = 0;
+unsigned char period = LOW_SPEED;
 int i = 0;
 int pin = 0x01;
 
@@ -14,7 +16,7 @@ int pin = 0x01;
 /*************************************************/
 void init_rti(int s)
 {
-	scaler = s;
+	//scaler = s;
 	Crg.rtictl.byte = DEFAULT_TIME_OUT;     //리얼타임 인터럽트의 속도 결정(0.5ms 로 하시오)
 	Crg.crgint.byte |= 0b10000000;		//리얼타임 인터럽트 enable
 }
@@ -28,23 +30,47 @@ void rti_service_ten_milli_sec() {
     u32 delta = (TargetFloor == CurrentFloor ? 0 : (TargetFloor > CurrentFloor ? +1 : -1));
     
     if (delta == 0) {
-	count = 0;
-	// 모터 정지
-	
+        count = 0;
+        // 모터 정지
+        disable_pwm();
+        // 정지 플래그
+        isMoving = FALSE;
+        // period 초기화
+        period = LOW_SPEED;
     }
     else {
-	// 초기화 판별
+        // 초기화
         if (count == 0) {
             // 모터 방향 결정 & 초기화
-	    // 
-	}
-	CurrentFloor += delta;
-	count++;
-	// 1. 모터 가속
-	// 2. 모터 감속
-	// 3. 모터 정지
-	// 4. 문 열기
-	// 5. 문 닫기
+            init_pwm(TargetFloor > CurrentFloor);
+            period = LOW_SPEED;
+        }
+        CurrentFloor += delta;
+        count++;
+        // 1. 모터 가속 (count가 홀수일때 호출)
+        if (count <= ACCELERATE_PERIOD && count & 1) {
+            period++;
+            set_pwm(period, period / 2);
+        }
+        // 2. 모터 감속 (count가 홀수일때 호출)
+        if (TargetFloor - DEACCELERATE_PERIOD1 <= CurrentFloor && CurrentFloor < TargetFloor - DEACCELERATE_PERIOD2 && count & 1) {
+            period--;
+            set_pwm(period, period / 2);
+        }
+        // 3. 모터 정지
+        if (TargetFloor - DEACCELERATE_PERIOD2 <= CurrentFloor) {
+            disable_pwm();
+        }
+        // 4. 문 열기
+        if (TargetFloor - DOOR_OPEN <= CurrentFloor && CurrentFloor < TargetFloor - DOOR_CLOSE && (count % 100 == 0)) {
+            doorStatus++;
+            set_door(doorStatus);
+        }
+        // 5. 문 닫기
+        else if (TargetFloor - DOOR_CLOSE <= CurrentFloor) {
+            doorStatus--;
+            count = 0;
+        }
     }
 }
 

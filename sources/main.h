@@ -10,6 +10,7 @@
 #include "led.h"
 #include "pwm.h"
 #include "queue.h"
+#include "queue_floor.h"
 #include "rti.h"
 #include "sci.h"
 #include "seven_seg.h"

@@ -5,6 +5,7 @@
 
 #include "dataframe.h"
 #include "queue_floor.h"
+#include "rti.h"
 
 void STATE_CONTROL(DataFrame* df);
 void PAUSE_CONTROL(DataFrame* df);

@@ -17,11 +17,11 @@ void PAUSE_CONTROL(DataFrame* df) {
     if (df->cmdnum == CMD_PAUSE_CTRL_PAUSE) {
         if (data == '0') {
             // 시작
-            rti_enable();
+            //rti_enable();
         }
         else if (data == '1') {
             // 일시정지
-            rti_disable();
+            //rti_disable();
         }
     }
 }
@@ -29,11 +29,11 @@ void PAUSE_CONTROL(DataFrame* df) {
 void BUFFER_CONTROL(DataFrame* df) {
     if (df->cmdnum == CMD_BUFFER_CTRL_ADD) {
         // 버퍼 추가
-        FloorQueuePush((df->data[0] - '0') * 1000);
+        QueueFloorPush((df->data[0] - '0') * 1000);
     }
     else if (df->cmdnum == CMD_BUFFER_CTRL_CLR) {
         // 버퍼 비우기
-        FloorQueueClear();
+        //QueueFloorClear();
     }
     else if (df->cmdnum == CMD_BUFFER_UPDATE_PRINT) {
         // 버퍼 정보 출력

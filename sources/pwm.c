@@ -26,6 +26,7 @@ void enable_pwm() {
 /**************************************************/
 
 void init_pwm(u8 clockwise) {
+    // 상: 시계 방향
     if (clockwise) {
         Pwm.pwme.byte = PWME0 | PWME1 | PWME2 | PWME3;
         //Pwm.pwme.byte = ~(PWME0 | PWME1 | PWME2 | PWME3) ;  // PWM의 모든 채널(0~3)을 비활성화 한다.
@@ -44,6 +45,7 @@ void init_pwm(u8 clockwise) {
         // shutdown
         Pwm.pwmsdn.bit.pwm7en = 0;
     }
+    // 하: 반시계 방향
     else {
         Pwm.pwme.byte = PWME0 | PWME1 | PWME2 | PWME3;
         //Pwm.pwme.byte = ~(PWME0 | PWME1 | PWME2 | PWME3) ;  // PWM의 모든 채널(0~3)을 비활성화 한다.
