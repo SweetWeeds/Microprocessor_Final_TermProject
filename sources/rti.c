@@ -46,6 +46,8 @@ void rti_service_ten_milli_sec() {
         }
         CurrentFloor += delta;
         count++;
+		// 세븐 세그먼트 회전 (0.1s마다)
+		if (count % 1000 == 0) rotate_7seg(TargetFloor > CurrentFloor);
         // 1. 모터 가속 (count가 홀수일때 호출)
         if (count <= ACCELERATE_PERIOD && count & 1) {
             pwm_period++;
@@ -69,9 +71,10 @@ void rti_service_ten_milli_sec() {
         if (TargetFloor - DOOR_CLOSE <= CurrentFloor && (count % 100 == 0)) {
             doorStatus--;
 	    	set_door(doorStatus);
-        }
+		}
 		if (TargetFloor <= CurrentFloor) {
 			count = 0;
+			set_7segment(CurrentFloor / 1000);
 			isMoving = FALSE;
 		}
     }
