@@ -9,25 +9,34 @@
  *
  * PWM0, PWM1 ->  62.5kHz
  *
- * ¹ö½º Å¬·° : 8MHz */
+ * ë²„ìŠ¤ í´ëŸ­ : 8MHz */
 
+// PWM ë¹„í™œì„±í™”
+void disable_pwm() {
+    Pwm.pwme.byte = ~(PWME0 | PWME1 | PWME2 | PWME3);
+}
+
+// PWM í™œì„±í™”
+void enable_pwm() {
+    Pwm.pwme.byte = PWME0 | PWME1 | PWME2 | PWME3;
+}
 
 /**************************************************/
-/*   PWMÀ» ÃÊ±âÈ­ÇÑ´Ù.
+/*   PWMì„ ì´ˆê¸°í™”í•œë‹¤.
 /**************************************************/
 
 void init_pwm(u8 clockwise) {
     if (clockwise) {
         Pwm.pwme.byte = PWME0 | PWME1 | PWME2 | PWME3;
-        //Pwm.pwme.byte = ~(PWME0 | PWME1 | PWME2 | PWME3) ;  // PWMÀÇ ¸ğµç Ã¤³Î(0~3)À» ºñÈ°¼ºÈ­ ÇÑ´Ù.
+        //Pwm.pwme.byte = ~(PWME0 | PWME1 | PWME2 | PWME3) ;  // PWMì˜ ëª¨ë“  ì±„ë„(0~3)ì„ ë¹„í™œì„±í™” í•œë‹¤.
 
-        Pwm.pwmpol.byte = PPOL0 | PPOL2;  // °¢ Ã¤³ÎÀÇ ±Ø¼ºÀ» ¼³Á¤ÇÑ´Ù. (A, B) -> /A/B -> A/B -> AB -> /AB
+        Pwm.pwmpol.byte = PPOL0 | PPOL2;  // ê° ì±„ë„ì˜ ê·¹ì„±ì„ ì„¤ì •í•œë‹¤. (A, B) -> /A/B -> A/B -> AB -> /AB
 
-        Pwm.pwmclk.byte = 0x0;  // °¢ Ã¤³ÎÀÇ Å¬·°(A,B)À» ¼±ÅÃÇÑ´Ù.
+        Pwm.pwmclk.byte = 0x0;  // ê° ì±„ë„ì˜ í´ëŸ­(A,B)ì„ ì„ íƒí•œë‹¤.
 
-        Pwm.pwmprclk.byte = PCKA | PCKB;  // °¢ Ã¤³ÎÀÇ Clock Prescale À» ¼³Á¤ÇÑ´Ù.
+        Pwm.pwmprclk.byte = PCKA | PCKB;  // ê° ì±„ë„ì˜ Clock Prescale ì„ ì„¤ì •í•œë‹¤.
 
-        Pwm.pwmcae.byte = CAE0 | CAE1;  // Áß¾Ó Á¤·Ä(Center Align)ÇÒ Ã¤³ÎÀ» ¼³Á¤ÇÑ´Ù. (A, /A)
+        Pwm.pwmcae.byte = CAE0 | CAE1;  // ì¤‘ì•™ ì •ë ¬(Center Align)í•  ì±„ë„ì„ ì„¤ì •í•œë‹¤. (A, /A)
 
         // PWM control
         Pwm.pwmctl.byte = 0x00;
@@ -37,15 +46,15 @@ void init_pwm(u8 clockwise) {
     }
     else {
         Pwm.pwme.byte = PWME0 | PWME1 | PWME2 | PWME3;
-        //Pwm.pwme.byte = ~(PWME0 | PWME1 | PWME2 | PWME3) ;  // PWMÀÇ ¸ğµç Ã¤³Î(0~3)À» ºñÈ°¼ºÈ­ ÇÑ´Ù.
+        //Pwm.pwme.byte = ~(PWME0 | PWME1 | PWME2 | PWME3) ;  // PWMì˜ ëª¨ë“  ì±„ë„(0~3)ì„ ë¹„í™œì„±í™” í•œë‹¤.
 
-        Pwm.pwmpol.byte = PPOL0 | PPOL3;  // °¢ Ã¤³ÎÀÇ ±Ø¼ºÀ» ¼³Á¤ÇÑ´Ù. (A, /B) -> /AB -> AB -> A/B -> /A/B
+        Pwm.pwmpol.byte = PPOL0 | PPOL3;  // ê° ì±„ë„ì˜ ê·¹ì„±ì„ ì„¤ì •í•œë‹¤. (A, /B) -> /AB -> AB -> A/B -> /A/B
 
-        Pwm.pwmclk.byte = 0x0;  // °¢ Ã¤³ÎÀÇ Å¬·°(A,B)À» ¼±ÅÃÇÑ´Ù.
+        Pwm.pwmclk.byte = 0x0;  // ê° ì±„ë„ì˜ í´ëŸ­(A,B)ì„ ì„ íƒí•œë‹¤.
 
-        Pwm.pwmprclk.byte = PCKA | PCKB;  // °¢ Ã¤³ÎÀÇ Clock Prescale À» ¼³Á¤ÇÑ´Ù.
+        Pwm.pwmprclk.byte = PCKA | PCKB;  // ê° ì±„ë„ì˜ Clock Prescale ì„ ì„¤ì •í•œë‹¤.
 
-        Pwm.pwmcae.byte = CAE0 | CAE1;  // Áß¾Ó Á¤·Ä(Center Align)ÇÒ Ã¤³ÎÀ» ¼³Á¤ÇÑ´Ù. (A, /A)
+        Pwm.pwmcae.byte = CAE0 | CAE1;  // ì¤‘ì•™ ì •ë ¬(Center Align)í•  ì±„ë„ì„ ì„¤ì •í•œë‹¤. (A, /A)
 
         // PWM control
         Pwm.pwmctl.byte = 0x00;
@@ -57,21 +66,21 @@ void init_pwm(u8 clockwise) {
 
 
 /**************************************************/
-/*   PWMÀÇ ÁÖ±â¿Í µÎÆ¼¸¦ ¼³Á¤ÇÑ´Ù.
+/*   PWMì˜ ì£¼ê¸°ì™€ ë‘í‹°ë¥¼ ì„¤ì •í•œë‹¤.
 /**************************************************/
 // p: period, d: duty
 void set_pwm(unsigned char p, unsigned char d) {
     // disable PWM channel
     //Pwm.pwme.byte = ~(PWME0 | PWME1 | PWME2 | PWME3) ;
     
-    // °¢ Ã¤³ÎÀÇ ÁÖ±â¸¦ ¼³Á¤ÇÑ´Ù.
+    // ê° ì±„ë„ì˜ ì£¼ê¸°ë¥¼ ì„¤ì •í•œë‹¤.
     Pwm.pwmper[0].byte = p >> 1;
     Pwm.pwmper[1].byte = p >> 1;
 
     Pwm.pwmper[2].byte = p;
     Pwm.pwmper[3].byte = p;
 
-    // °¢ Ã¤³ÎÀÇ µàÆ¼¸¦ ¼³Á¤ÇÑ´Ù.
+    // ê° ì±„ë„ì˜ ë“€í‹°ë¥¼ ì„¤ì •í•œë‹¤.
     Pwm.pwmdty[0].byte = d >> 1;
     Pwm.pwmdty[1].byte = d >> 1;
 
@@ -79,6 +88,6 @@ void set_pwm(unsigned char p, unsigned char d) {
     Pwm.pwmdty[3].byte = d;
 
     
-    // PWMÀÇ ¸ğµç Ã¤³Î(0~3)À» È°¼ºÈ­ ÇÑ´Ù.
+    // PWMì˜ ëª¨ë“  ì±„ë„(0~3)ì„ í™œì„±í™” í•œë‹¤.
     //Pwm.pwme.byte = PWME0 | PWME1 | PWME2 | PWME3;
 }
