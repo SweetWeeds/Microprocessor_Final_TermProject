@@ -29,7 +29,7 @@ void PAUSE_CONTROL(DataFrame* df) {
 }
 
 void BUFFER_CONTROL(DataFrame* df) {
-    u8 sci_buffer[10] = { 0, };
+    u8 sci_buffer[15] = { 0, };
     if (df->cmdnum == CMD_BUFFER_CTRL_ADD) {
         // 버퍼 추가
         QueueFloorPush((df->data[0] - '0') * 1000);
@@ -40,7 +40,7 @@ void BUFFER_CONTROL(DataFrame* df) {
     }
     else if (df->cmdnum == CMD_BUFFER_UPDATE_PRINT) {
         // 버퍼 정보 출력
-        sprintf(sci_buffer, "%1d%s", fb_idx, floor_buffer);
+        sprintf(sci_buffer, "<%1d%s>", fb_idx, floor_buffer);
         write_sci0(sci_buffer);
     }
 }
