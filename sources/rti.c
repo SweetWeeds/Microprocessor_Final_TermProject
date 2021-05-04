@@ -11,13 +11,21 @@ int pin = 0x01;
 // s : scaler by 0.5ms
 // eg) s=2000 -> 0.5*2000 = 1s
 
+void rti_enable() {
+	Crg.crgint.byte |= 0b10000000;		//리얼타임 인터럽트 enable
+}
+
+void rti_disable() {
+	Crg.crgint.byte &= 0b01111111;		//리얼타임 인터럽트 enable
+}
+
 /*************************************************/
 /*  리얼타임 인터럽트를 초기화 한다.*/
 /*************************************************/
 void init_rti() {
 	//scaler = s;
 	Crg.rtictl.byte = DEFAULT_TIME_OUT;     //리얼타임 인터럽트의 속도 결정(0.5ms 로 하시오)
-	Crg.crgint.byte |= 0b10000000;		//리얼타임 인터럽트 enable
+    Crg.crgint.byte |= 0b10000000;		//리얼타임 인터럽트 enable
 }
 
 /**
