@@ -56,21 +56,20 @@ void main() {
 	df = QueuePop();
 	// 널 포인터 체크
 	if (df) {
-	//set_inst_register(CODE_CLR_DISP);
-	// 명령어 처리
-	switch (df->groupnum) {
-	    case GROUP_STATE:
-		STATE_CONTROL(df);
-		break;
-	    case GROUP_PAUSE:
-		PAUSE_CONTROL(df);
-		break;
-	    case GROUP_BUFFER:
-		BUFFER_CONTROL(df);
-		break;
-	    }
-            free(df);
-	    df = NULL;
-	}
+		// 명령어 처리
+		switch (df->groupnum) {
+			case GROUP_STATE:
+			STATE_CONTROL(df);
+			break;
+			case GROUP_PAUSE:
+			PAUSE_CONTROL(df);
+			break;
+			case GROUP_BUFFER:
+			BUFFER_CONTROL(df);
+			break;
+			}
+				free(df);
+			df = NULL;
+		}
     }
 }
