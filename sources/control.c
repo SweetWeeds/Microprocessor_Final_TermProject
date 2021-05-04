@@ -33,7 +33,7 @@ void BUFFER_CONTROL(DataFrame* df) {
     }
     else if (df->cmdnum == CMD_BUFFER_CTRL_CLR) {
         // 버퍼 비우기
-        //QueueFloorClear();
+        QueueFloorClear();
     }
     else if (df->cmdnum == CMD_BUFFER_UPDATE_PRINT) {
         // 버퍼 정보 출력
