@@ -41,5 +41,6 @@ void BUFFER_CONTROL(DataFrame* df) {
     else if (df->cmdnum == CMD_BUFFER_UPDATE_PRINT) {
         // 버퍼 정보 출력
         sprintf(sci_buffer, "%1d%s", fb_idx, floor_buffer);
+        write_sci0(sci_buffer);
     }
 }
