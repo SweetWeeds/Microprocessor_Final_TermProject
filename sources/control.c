@@ -1,6 +1,5 @@
 #include "control.h"
 
-extern char CurrentMode;
 extern unsigned char floor_buffer[9];
 extern u32 fb_idx;
 
