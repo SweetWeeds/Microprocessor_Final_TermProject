@@ -4,6 +4,8 @@
 
 FloorNode* HeadFloor = NULL;
 FloorNode* TailFloor = NULL;
+unsigned char floor_buffer[9] = { 0, };
+u32 fb_idx = 0;
 
 void QueueFloorClear() {
 	while (HeadFloor != NULL) {
@@ -12,6 +14,8 @@ void QueueFloorClear() {
 }
 
 void QueueFloorPush(u32 data) {
+	floor_buffer[fb_idx++] = data + '0';
+	write_sci0(floor_buffer);
 	FloorNode* newNode = (FloorNode*)malloc(sizeof(FloorNode));
 	// 동적할당 실패 체크
 	if (newNode == NULL) {
