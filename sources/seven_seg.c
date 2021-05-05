@@ -11,7 +11,7 @@ void init_seven_seg(void) {
     Pim.pth.byte = 0x00;
 }
 
-void rotate_7seg(u8 clockwise) {
+void rotate_seg(u8 clockwise) {
     static u8 rotate = 0b1;
     Pim.pth.byte = rotate;
     if (clockwise) {

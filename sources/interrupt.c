@@ -25,13 +25,13 @@ void interruptJ_function(void)
     //unsigned char atd_value;
     if(Pim.pifj.byte & SW2_MASK_BIT)      // SW2의 인터럽트 발생 (GUI 카운터 상승)
     { 
-        df = GetDataFrame("<0200102>");
+        df = GetDataFrame("<0200002>");
         QueuePush(df);
         Pim.pifj.byte |= SW2_MASK_BIT;    // 인터럽트 플래그 초기화 
     }
     else if(Pim.pifj.byte & SW3_MASK_BIT)  // SW3의 인터럽트 발생 (ADC 값 전송)
     {
-        df = GetDataFrame("<0200103>");
+        df = GetDataFrame("<0200003>");
         QueuePush(df);
         Pim.pifj.byte |= SW3_MASK_BIT;   // 인터럽트 플래그 초기화 
     }
@@ -44,7 +44,7 @@ void interruptJ_function(void)
 void interruptX_function (void)    //XIRQ interrupt 서비스 함수 (SW1의 인터럽트 발생)
 {
     DataFrame* df = NULL;
-    df = GetDataFrame("<0200101>");
+    df = GetDataFrame("<0200001>");
     QueuePush(df);
     df = NULL;
 }

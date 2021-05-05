@@ -19,8 +19,10 @@ typedef enum {
     COUNTER_CLOCK_WISE = 1
 } DIRECTION;
 
+typedef unsigned char u8;
+
 void init_seven_seg(void);
-void rotate_7seg(void);
+void rotate_seg(u8 clockwise);
 void set_7segment(unsigned int number);
 
 #endif /* SEVEN_SEG */

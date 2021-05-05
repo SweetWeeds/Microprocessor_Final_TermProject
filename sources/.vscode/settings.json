@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "rti.h": "c",
+        "projectvectors.h": "c",
+        "main.h": "c"
+    }
+}

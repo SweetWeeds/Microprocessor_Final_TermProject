@@ -2,8 +2,8 @@
 #define MAIN_H
 
 #include "projectglobals.h"
-#include "atd.h"
 #include "dataframe.h"
+#include "atd.h"
 #include "exception.h"
 #include "interrupt.h"
 #include "lcd.h"
@@ -15,6 +15,8 @@
 #include "sci.h"
 #include "seven_seg.h"
 #include "control.h"
+
+#define LCD_BUFFER_SIZE 17
 
 typedef unsigned char u8;
 

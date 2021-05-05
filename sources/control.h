@@ -9,9 +9,9 @@
 #include "lcd.h"
 #include "seven_seg.h"
 
-void STATE_CONTROL(DataFrame* df);
-void PAUSE_CONTROL(DataFrame* df);
-void BUFFER_CONTROL(DataFrame* df);
+void STATE_CONTROL(struct _DataFrame* df);
+void PAUSE_CONTROL(struct _DataFrame* df);
+void BUFFER_CONTROL(struct _DataFrame* df);
 
 // 층수: 10ms 때마다 +-1씩 이동
 #define FLOOR_ONE   1000   // 1층

@@ -6,6 +6,7 @@
 #include "pwm.h"
 #include "seven_seg.h"
 #include "led.h"
+#include "lcd.h"
 #include "control.h"
 
 /*Macros*/
@@ -14,13 +15,15 @@
 #define ZERO_POINT_FIVE_SEC 1000    // 0.5초 = 500 ms
 #define ONE_SEC             2000    // 1초 = 1000 ms
 #define TEN_MILLI_SEC       20      // 10 ms
+#define FIVE_MILLI_SEC       10      // 5 ms
 
 // 시간 별 동작 정의
-#define ACCELERATE_PERIOD       100     // 출발하고 1초동안 가속
-#define DEACCELERATE_PERIOD1    500     // 도착하기 5초 ~ 4초전까지 감속
-#define DEACCELERATE_PERIOD2    400
-#define DOOR_OPEN               400     // 4초~3초까지 문이 열림
-#define DOOR_CLOSE              200     // 1초~0초까지 문이 닫힘
+#define ACCELERATE_PERIOD       200     // 출발하고 2초동안 가속
+#define DEACCELERATE_PERIOD1    500     // 도착하기 5초전부터 감속
+#define DEACCELERATE_PERIOD2    300     // 도착하기 3초전까지 감속
+#define DOOR_TIME               300     // 문 열고 닫기 3초
+#define DOOR_OPEN               50      // 도착 후 0 ~ 0.5초 사이에 문이 열림
+#define DOOR_CLOSE              50      // 도착 0.5초전 문이 닫힘
 
 typedef unsigned char   u8;
 typedef unsigned int    u32;

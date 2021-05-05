@@ -14,12 +14,11 @@ void QueueFloorClear() {
 }
 
 void QueueFloorPush(u32 data) {
-	floor_buffer[fb_idx++] = data + '0';
-	write_sci0(floor_buffer);
-	FloorNode* newNode = (FloorNode*)malloc(sizeof(FloorNode));
+	FloorNode* newNode = NULL;
+	newNode = (FloorNode*)malloc(sizeof(FloorNode));
 	// 동적할당 실패 체크
 	if (newNode == NULL) {
-		//ExceptionHandling(DynamicAllocFailed);
+        //write_sci0("DA_Failed");
 		return;
 	}
 	newNode->data = data;
@@ -40,7 +39,7 @@ void QueueFloorPush(u32 data) {
 	}
 	// 예외 처리 (잘못된 핸들링)
 	else {
-		//ExceptionHandling(QueueFault);
+        //write_sci0("Handling_Fault");
         return;
 	}
 }

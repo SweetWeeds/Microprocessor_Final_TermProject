@@ -12,12 +12,12 @@
  * 버스 클럭 : 8MHz */
 
 // PWM 비활성화
-void disable_pwm() {
+void pwm_disable() {
     Pwm.pwme.byte = ~(PWME0 | PWME1 | PWME2 | PWME3);
 }
 
 // PWM 활성화
-void enable_pwm() {
+void pwm_enable() {
     Pwm.pwme.byte = PWME0 | PWME1 | PWME2 | PWME3;
 }
 
@@ -73,7 +73,7 @@ void init_pwm(u8 clockwise) {
 // p: period, d: duty
 void set_pwm(unsigned char p, unsigned char d) {
     // disable PWM channel
-    //Pwm.pwme.byte = ~(PWME0 | PWME1 | PWME2 | PWME3) ;
+    Pwm.pwme.byte = ~(PWME0 | PWME1 | PWME2 | PWME3) ;
     
     // 각 채널의 주기를 설정한다.
     Pwm.pwmper[0].byte = p >> 1;
@@ -91,5 +91,5 @@ void set_pwm(unsigned char p, unsigned char d) {
 
     
     // PWM의 모든 채널(0~3)을 활성화 한다.
-    //Pwm.pwme.byte = PWME0 | PWME1 | PWME2 | PWME3;
+    Pwm.pwme.byte = PWME0 | PWME1 | PWME2 | PWME3;
 }

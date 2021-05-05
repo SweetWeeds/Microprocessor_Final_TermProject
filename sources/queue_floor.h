@@ -9,13 +9,13 @@
 
 typedef unsigned int u32;
 
-struct _FloorNode {
+typedef struct _FloorNode {
 	u32 data;
 	struct _FloorNode* preNode;
 	struct _FloorNode* nextNode;
-};
+} FloorNode;
 
-typedef struct _FloorNode FloorNode;
+//typedef struct _FloorNode FloorNode;
 
 void QueueFloorClear();
 void QueueFloorPush(u32 data);

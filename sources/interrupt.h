@@ -6,8 +6,8 @@
 #include "atd.h"
 #include "seven_seg.h"
 #include "sci.h"
-#include "queue.h"
 #include "dataframe.h"
+#include "queue.h"
 #include "stdio.h"
 
 #define xint_enable()  {asm andcc   #0xBF;}

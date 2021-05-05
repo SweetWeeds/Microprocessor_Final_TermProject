@@ -1,18 +1,19 @@
 #include "control.h"
 
+extern u32 CurrentFloor;
 extern unsigned char floor_buffer[9];
 extern u32 fb_idx;
-u8 sci_buffer[15] = { 0, };
+extern u8 TX[];
 
 void STATE_CONTROL(DataFrame* df) {
     if (df->cmdnum == CMD_STATE_CTRL_FLOOR && df->data[0] <= '3' && '1' <= df->data[0]) {
         // 층 수 변경
-        CurrentMode = (df->data[0] - '0') * 1000;
+        CurrentFloor = (df->data[0] - '0') * 1000;
     }
     else if (df->cmdnum == CMD_STATE_UPDATE_PRINT) {
         // 층 수 출력
-        sprintf(sci_buffer, "<%c>", df->data[0]);
-        write_sci0(sci_buffer);
+        sprintf(TX, "<%c>", df->data[0]);
+        write_sci0(TX);
     }
 }
 
@@ -43,7 +44,7 @@ void BUFFER_CONTROL(DataFrame* df) {
     }
     else if (df->cmdnum == CMD_BUFFER_UPDATE_PRINT) {
         // 버퍼 정보 출력
-        sprintf(sci_buffer, "<%1d%s>", fb_idx, floor_buffer);
-        write_sci0(sci_buffer);
+        sprintf(TX, "<%1d%s>", fb_idx, floor_buffer);
+        write_sci0(TX);
     }
 }

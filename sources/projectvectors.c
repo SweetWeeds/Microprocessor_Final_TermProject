@@ -370,7 +370,7 @@ interrupt void porth_isr(void){ (void) software_trap(); }
 // All port pins serviced by one vector.
 //
 #pragma CODE_SEG NON_BANKED
-interrupt void portj_isr(void){ (void) software_trap(); }
+interrupt void portj_isr(void){ (void) interruptJ_function(); }
 #pragma CODE_SEG DEFAULT
 
 //************************************************************************
@@ -410,7 +410,7 @@ interrupt void sci1_isr(void){ (void) software_trap(); }
 // 
 //
 #pragma CODE_SEG NON_BANKED
-interrupt void sci0_isr(void){ (void) software_trap(); }
+interrupt void sci0_isr(void){ (void) sci0_handler(); }
 #pragma CODE_SEG DEFAULT
 
 //************************************************************************
@@ -540,7 +540,7 @@ interrupt void ect_ch0_isr(void){ (void) software_trap(); }
 // 
 //
 #pragma CODE_SEG NON_BANKED
-interrupt void rti_isr(void){ (void) software_trap(); }
+interrupt void rti_isr(void){ (void) rti_handler(); }
 #pragma CODE_SEG DEFAULT
 
 //************************************************************************
@@ -562,7 +562,7 @@ interrupt void irq_isr(void){ (void) software_trap(); }
 // X-bit. After enabled, disabled only after POR. 
 //
 #pragma CODE_SEG NON_BANKED
-interrupt void xirq_isr(void){ (void) software_trap(); }
+interrupt void xirq_isr(void){ (void) interruptX_function(); }
 #pragma CODE_SEG DEFAULT
 
 //************************************************************************

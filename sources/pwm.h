@@ -8,12 +8,12 @@
 #define PWMCAE_CENTER_ALIGN 0x01
 
 #define LOW_SPEED  254
-#define HIGH_SPEED 200
+#define HIGH_SPEED 180
 
 typedef unsigned char u8;
 
-void disable_pwm(void);
-void enable_pwm(void);
+void pwm_disable(void);
+void pwm_enable(void);
 void init_pwm(u8 clockwise);
 void set_pwm(unsigned char p, unsigned char d);
 
