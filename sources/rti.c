@@ -45,6 +45,7 @@ void rti_service_ten_milli_sec() {
     static int moving_time = 0;         // 이동시간 (10ms * moving_time)
     static int delta = 0;               // 이동 거리
     static int one_gauge = 0;           // 게이지 한 칸 기준
+    static u8 gauge[13] = { 0, };
     static u32 gauge_cnt = 0;           // 게이지 카운터
     static u8 motor_stop = FALSE;       // 모터 스탑 플래그
 
@@ -71,15 +72,16 @@ void rti_service_ten_milli_sec() {
     else if (tcount < moving_time) {
         tcount++;
         left_time = moving_time - tcount;
-        // pwm 오프셋 반영
-        //tmp_pwm_period = pwm_period + (pwm_period & 1) - pwm_period_offset;
-        //sprintf(TX, "%d", tmp_pwm_period);
-        //write_string(0x40, TX);
+
+        // pwm 반영
         if (motor_stop == FALSE) set_pwm(pwm_period, pwm_period >> 1);
         
         // LCD 게이지
-        if (tcount % one_gauge == 0) gauge_cnt++;
-        write_char(LCD_OFFSET + gauge_cnt, 0xff);
+        if (tcount % one_gauge == 0) {
+            gauge[gauge_cnt++] = 0xff;
+            gauge[gauge_cnt] = 0;
+            write_string(LCD_OFFSET, gauge);
+        }
 
         // 세그먼트 회전
         if (tcount % 10 == 0 && DEACCELERATE_PERIOD2 <= left_time) {
@@ -90,13 +92,11 @@ void rti_service_ten_milli_sec() {
         if (tcount <= ACCELERATE_PERIOD && tcount % 10 == 0 && pwm_period > HIGH_SPEED) {
             tmp_pwm_period--;
             if (tmp_pwm_period < HIGH_SPEED) tmp_pwm_period = HIGH_SPEED;
-            //if (!(pwm_period & 1)) set_pwm(pwm_period + pwm_period_offset, (pwm_period + pwm_period_offset) >> 1);
         }
         // 2. 모터 감속 & 모터 정지
         else if (DEACCELERATE_PERIOD2 <= left_time && left_time <= DEACCELERATE_PERIOD1 && tcount % 10 == 0 && pwm_period < LOW_SPEED) {
             tmp_pwm_period++;
             if (tmp_pwm_period > LOW_SPEED) tmp_pwm_period = LOW_SPEED;
-            //if (!(pwm_period & 1)) set_pwm(pwm_period + pwm_period_offset, (pwm_period + pwm_period_offset) >> 1);
         }
         // 3. 문 열기 (3초 ~ 2.5초)
         else if ((DOOR_TIME - DOOR_OPEN) <= left_time && left_time < DOOR_TIME) {

@@ -4,7 +4,7 @@
 
 FloorNode* HeadFloor = NULL;
 FloorNode* TailFloor = NULL;
-u8 floor_buffer[9] = { 0, };
+u8 floor_buffer[10] = { 0, };
 u32 fb_idx = 0;
 extern u8 LCD_FIRST_LINE[];     // LCD 버퍼 첫번째 줄
 extern u32 CurrentFloor;
@@ -31,7 +31,7 @@ void QueueFloorPush(u32 data) {
 
     // floor_buffer 입력
     floor_buffer[fb_idx++] = (data / 1000) + '0';
-    floor_buffer[fb_idx] = '\0';
+    floor_buffer[fb_idx] = 0;
     sprintf(LCD_FIRST_LINE, "%-16s", floor_buffer);
     write_string(0x00, LCD_FIRST_LINE);
 	
