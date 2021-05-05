@@ -9,9 +9,13 @@ u8 RX[RX_BUFFER_SIZE] = { 0, };     // 시리얼 수신 버퍼
 u8 TX[TX_BUFFER_SIZE] = { 0, };     // 시리얼 송신 버퍼
 u8 LCD_FIRST_LINE[LCD_BUFFER_SIZE];     // LCD 버퍼 첫번째 줄
 u8 LCD_SECOND_LINE[LCD_BUFFER_SIZE];    // LCD 버퍼 두번째 줄
-//u32 pwm_period_scaler = 1;          // 
+u32 pwm_period;	// 모터 주기
+u32 tmp_pwm_period = LOW_SPEED;
 
 void main() {
+    u32 pwm_period_offset = 0;          // pwm 속도 오프셋 (ATD를 통한 속도 제어)
+    u8 atd_val = 0;
+
     // 인터럽트 초기화
     int_disable();
     ini_interrupt();
@@ -36,13 +40,21 @@ void main() {
 
     // LCD 초기화
     init_LCD();
-    write_string(0x00, "Final Term");
+    //write_string(0x00, "Final Term");
 
     // DataFrame 테이블 초기화
     InitFormatTable();
 
     //Insert Application Software Here.
     for (;;) {
+        // ATD
+        pwm_period_offset = convert_value(get_atd0(ANALOG_INPUT_CHANNEL));
+        // pwm 오프셋 반영
+        pwm_period = tmp_pwm_period + (tmp_pwm_period & 1) - pwm_period_offset;
+        sprintf(TX, "%d", pwm_period);
+        write_string(0x40, TX);
+        ms_delay(5);
+
         // 현재 상태 체크
         if (!isMoving) {
             // 정지 중

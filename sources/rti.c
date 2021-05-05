@@ -4,8 +4,13 @@ extern u8 TX[];
 extern u32 TargetFloor;	    // 가고자 하는 층
 extern u32 CurrentFloor;	// 현재 층 (1층: 1000, 1~2층 사이: 1001~1999 ...)
 extern u8  isMoving;
+extern u8 floor_buffer[];
+extern u32 fb_idx;
+extern u8 LCD_FIRST_LINE[];
+//extern u32 pwm_period_offset;
+extern u32 pwm_period;	// 모터 주기
+extern u32 tmp_pwm_period;
 
-//unsigned char period = LOW_SPEED;
 int i = 0;
 int pin = 0x01;
 
@@ -36,10 +41,17 @@ void rti_service_ten_milli_sec() {
     static int isHigher = 0;            // 목적 층 > 현재 층: +, 목적 층 < 현재 층: -, 목적 층 == 현재 층: 0
     static u32 doorStatus = 0;          // 엘리베이터 문 열고 닫기 상태
     static int tcount = 0;              // 함수 호출 횟수
-    static u32 pwm_period = LOW_SPEED;	// 모터 주기
-    static int moving_time = 0;  // 이동시간 (10ms * moving_time)
-    static int delta = 0;
+    //static u32 pwm_period = LOW_SPEED;	// 모터 주기
+    static int moving_time = 0;         // 이동시간 (10ms * moving_time)
+    static int delta = 0;               // 이동 거리
+    static int one_gauge = 0;           // 게이지 한 칸 기준
+    static u32 gauge_cnt = 0;           // 게이지 카운터
+    static u8 motor_stop = FALSE;       // 모터 스탑 플래그
+
     int left_time;
+    u32 idx = 0;
+    //u32 tmp_pwm_period;    
+
     
     if (!flag) {
         // 초기화
@@ -48,51 +60,81 @@ void rti_service_ten_milli_sec() {
         doorStatus = 0;
         set_door(doorStatus);
         tcount = 0;
-        pwm_period = LOW_SPEED;     // 최저 속도로 초기화 (LOW_SPEED = 254)
+        tmp_pwm_period = LOW_SPEED;     // 최저 속도로 초기화 (LOW_SPEED = 254)
         moving_time = ((isHigher > 0) ? (TargetFloor - CurrentFloor) : (CurrentFloor - TargetFloor)) + DOOR_TIME;
         delta = (isHigher ? (isHigher ? +1 : -1) : 0);
+        one_gauge = moving_time / DIV;
+        gauge_cnt = 0;
+        motor_stop = FALSE;
         init_pwm(isHigher > 0);    // 모터 방향 결정
     }
     else if (tcount < moving_time) {
         tcount++;
         left_time = moving_time - tcount;
+        // pwm 오프셋 반영
+        //tmp_pwm_period = pwm_period + (pwm_period & 1) - pwm_period_offset;
+        //sprintf(TX, "%d", tmp_pwm_period);
+        //write_string(0x40, TX);
+        if (motor_stop == FALSE) set_pwm(pwm_period, pwm_period >> 1);
+        
+        // LCD 게이지
+        if (tcount % one_gauge == 0) gauge_cnt++;
+        write_char(LCD_OFFSET + gauge_cnt, 0xff);
+
         // 세그먼트 회전
         if (tcount % 10 == 0 && DEACCELERATE_PERIOD2 <= left_time) {
             rotate_seg(isHigher > 0);
         }
+
         // 1. 모터 초기 가속
         if (tcount <= ACCELERATE_PERIOD && tcount % 10 == 0 && pwm_period > HIGH_SPEED) {
-            pwm_period--;
-            //sprintf(TX, "%d ", pwm_period);
-            //write_sci0(TX);
-            if (!(pwm_period & 1)) set_pwm(pwm_period, pwm_period >> 1);
+            tmp_pwm_period--;
+            if (tmp_pwm_period < HIGH_SPEED) tmp_pwm_period = HIGH_SPEED;
+            //if (!(pwm_period & 1)) set_pwm(pwm_period + pwm_period_offset, (pwm_period + pwm_period_offset) >> 1);
         }
         // 2. 모터 감속 & 모터 정지
         else if (DEACCELERATE_PERIOD2 <= left_time && left_time <= DEACCELERATE_PERIOD1 && tcount % 10 == 0 && pwm_period < LOW_SPEED) {
-            pwm_period++;
-            //sprintf(TX, "%d ", pwm_period);
-            //write_sci0(TX);
-            if (!(pwm_period & 1)) set_pwm(pwm_period, pwm_period >> 1);
+            tmp_pwm_period++;
+            if (tmp_pwm_period > LOW_SPEED) tmp_pwm_period = LOW_SPEED;
+            //if (!(pwm_period & 1)) set_pwm(pwm_period + pwm_period_offset, (pwm_period + pwm_period_offset) >> 1);
         }
         // 3. 문 열기 (3초 ~ 2.5초)
         else if ((DOOR_TIME - DOOR_OPEN) <= left_time && left_time < DOOR_TIME) {
             set_7segment(TargetFloor / 1000);
             pwm_disable();
-            if (tcount % 9 == 0 && doorStatus < 5) {
+            motor_stop = TRUE;
+            if (tcount % 12 == 0 && doorStatus <= 5) {
                 set_door(doorStatus++);
             }
         }
         // 4. 문 닫기 (2초 ~ 1.5초)
         else if (left_time < DOOR_CLOSE) {
-            if (tcount % 9 == 0 && doorStatus > 0) {
+            if (tcount % 12 == 0 && doorStatus > 0) {
                 set_door(--doorStatus);
             }
         }
     }
     else {
+        // floor_buffer에서 제거 & LCD 반영
+        while (floor_buffer[idx] != 0) {
+            floor_buffer[idx] = floor_buffer[idx + 1];
+            idx++;
+        }
+        fb_idx--;
+        sprintf(LCD_FIRST_LINE, "%-16s", floor_buffer);
+        write_string(0x00, LCD_FIRST_LINE);
+
         pwm_disable();
         isMoving = FALSE;
         CurrentFloor = TargetFloor;
+        motor_stop = FALSE;
+
+        // 게이지 바 반영
+        for (idx = 0; idx < 12; idx++)
+            write_char(LCD_OFFSET + idx, ' ');
+
+        // 버저
+        Regs.porta.bit.pta7 = 0b0;
 
         flag = FALSE;
     }

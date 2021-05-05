@@ -8,7 +8,7 @@
 #define PWMCAE_CENTER_ALIGN 0x01
 
 #define LOW_SPEED  254
-#define HIGH_SPEED 180
+#define HIGH_SPEED 190
 
 typedef unsigned char u8;
 

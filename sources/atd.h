@@ -24,6 +24,6 @@
 
 void init_atd0(void);
 int get_atd0(int channel);
-unsigned char convert_value(unsigned int cnt);
+unsigned int convert_value(int cnt);
 
 #endif /*SCI_H*/

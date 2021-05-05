@@ -5,6 +5,8 @@
         "rti.h": "c",
         "main.h": "c",
         "interrupt.h": "c",
-        "queue_floor.h": "c"
+        "queue_floor.h": "c",
+        "lcd.h": "c",
+        "atd.h": "c"
     }
 }

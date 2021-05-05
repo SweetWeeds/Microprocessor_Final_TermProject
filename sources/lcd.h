@@ -26,5 +26,6 @@ void init_LCD(void);
 void set_inst_register(BYTE code);
 void write_data(BYTE data);
 void write_string(BYTE offset, char *str);
+void write_char(BYTE offset, char c);
 
 #endif /* LCD_H */

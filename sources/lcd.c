@@ -1,6 +1,7 @@
 // INSTRUCTION CODE
 #include "lcd.h"
 
+BYTE lcd_mutex = FALSE;
 
 void init_LCD(void)
 {
@@ -29,8 +30,7 @@ void set_inst_register(BYTE code)
 }
 
 // LCD의 RAM에 데이터를 씀
-void write_data(BYTE data)
-{
+void write_data(BYTE data) {
     // 데이터의 상위 4비트를 보냄
     Regs.porta.byte = ((data & 0xF0) >> 1) | 0x01 | 0x04 | (Regs.porta.byte & 0x80);
     DISABLE_LCD();
@@ -41,13 +41,28 @@ void write_data(BYTE data)
 }
 
 // LCD의 특정 위치에 문자열을 씀
-void write_string(BYTE offset, char *str)
-{   
+void write_string(BYTE offset, char *str) {
     int i;
-    // 문자열을 쓸 주소 설정
-    set_inst_register(CODE_SET_DDRAM_ADDR(offset));
-    for (i = 0; str[i] != '\0'; i++) {
-        write_data(str[i]);
+    if (lcd_mutex == FALSE) {
+        lcd_mutex = TRUE;
+        // 문자열을 쓸 주소 설정
+        set_inst_register(CODE_SET_DDRAM_ADDR(offset));
+        for (i = 0; str[i] != '\0'; i++)
+            write_data(str[i]);
+        lcd_mutex = FALSE;
+    }
+}
+
+void write_char(BYTE offset, char c) {
+    if (lcd_mutex == FALSE) {
+        lcd_mutex = TRUE;
+        set_inst_register(CODE_SET_DDRAM_ADDR(offset));
+        Regs.porta.byte = ((c & 0xF0) >> 1) | 0x01 | 0x04 | (Regs.porta.byte & 0x80);
+        DISABLE_LCD();
+        // 데이터의 하위 4비트를 보냄
+        Regs.porta.byte = ((c & 0x0F) << 3) | 0x01 | 0x04 | (Regs.porta.byte & 0x80);
+        DISABLE_LCD();
+        lcd_mutex = FALSE;
     }
 }
 

@@ -35,12 +35,13 @@ void set_led(unsigned int digit) {
 }
 
 void set_door(unsigned int open) {
-    if (open == 0) set_led(0b1111111111);
+    if (open == 0)      set_led(0b1111111111);
     else if (open == 1) set_led(0b1111001111);
     else if (open == 2) set_led(0b1110000111);
     else if (open == 3) set_led(0b1100000011);
-    else if (open == 4) set_led(0b0000000000);
-    else set_led(0b1111111111);
+    else if (open == 4) set_led(0b1000000001);
+    else if (open == 5) set_led(0b0000000000);
+    else                set_led(0b0000000000);
 }
 
 void set_led_counter(unsigned int cnt) {
