@@ -12,8 +12,8 @@ void STATE_CONTROL(DataFrame* df) {
     }
     else if (df->cmdnum == CMD_STATE_UPDATE_PRINT) {
         // 층 수 출력
-        sprintf(TX, "<%c>", df->data[0]);
-        write_sci0(TX);
+        //sprintf(TX, "<%c>", df->data[0]);
+        //write_sci0(TX);
     }
 }
 
@@ -44,7 +44,7 @@ void BUFFER_CONTROL(DataFrame* df) {
     }
     else if (df->cmdnum == CMD_BUFFER_UPDATE_PRINT) {
         // 버퍼 정보 출력
-        sprintf(TX, "<%1d%s>", fb_idx, floor_buffer);
-        write_sci0(TX);
+        //sprintf(TX, "<%1d%s>", fb_idx, floor_buffer);
+        //write_sci0(TX);
     }
 }

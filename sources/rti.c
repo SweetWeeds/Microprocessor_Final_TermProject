@@ -3,7 +3,6 @@
 extern u8 TX[];
 extern u32 TargetFloor;	    // 가고자 하는 층
 extern u32 CurrentFloor;	// 현재 층 (1층: 1000, 1~2층 사이: 1001~1999 ...)
-extern u32 pwm_period_scaler;
 extern u8  isMoving;
 
 //unsigned char period = LOW_SPEED;
@@ -64,11 +63,15 @@ void rti_service_ten_milli_sec() {
         // 1. 모터 초기 가속
         if (tcount <= ACCELERATE_PERIOD && tcount % 10 == 0 && pwm_period > HIGH_SPEED) {
             pwm_period--;
+            //sprintf(TX, "%d ", pwm_period);
+            //write_sci0(TX);
             if (!(pwm_period & 1)) set_pwm(pwm_period, pwm_period >> 1);
         }
         // 2. 모터 감속 & 모터 정지
         else if (DEACCELERATE_PERIOD2 <= left_time && left_time <= DEACCELERATE_PERIOD1 && tcount % 10 == 0 && pwm_period < LOW_SPEED) {
             pwm_period++;
+            //sprintf(TX, "%d ", pwm_period);
+            //write_sci0(TX);
             if (!(pwm_period & 1)) set_pwm(pwm_period, pwm_period >> 1);
         }
         // 3. 문 열기 (3초 ~ 2.5초)

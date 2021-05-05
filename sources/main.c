@@ -6,10 +6,10 @@ u32 tmpFloor = FLOOR_ONE;           // 버퍼의 값을 임시 저장
 u8 isMoving = FALSE;                // 플래그: 움직이고 있는가?
 DataFrame* df = NULL;               // 큐 데이터 프레임
 u8 RX[RX_BUFFER_SIZE] = { 0, };     // 시리얼 수신 버퍼
-u8 TX[RX_BUFFER_SIZE] = { 0, };     // 시리얼 송신 버퍼
-//u8 LCD_FIRST_LINE[LCD_BUFFER_SIZE];     // LCD 버퍼 첫번째 줄
-//u8 LCD_SECOND_LINE[LCD_BUFFER_SIZE];    // LCD 버퍼 두번째 줄
-u32 pwm_period_scaler = 1;          // 
+u8 TX[TX_BUFFER_SIZE] = { 0, };     // 시리얼 송신 버퍼
+u8 LCD_FIRST_LINE[LCD_BUFFER_SIZE];     // LCD 버퍼 첫번째 줄
+u8 LCD_SECOND_LINE[LCD_BUFFER_SIZE];    // LCD 버퍼 두번째 줄
+//u32 pwm_period_scaler = 1;          // 
 
 void main() {
     // 인터럽트 초기화
@@ -36,7 +36,7 @@ void main() {
 
     // LCD 초기화
     init_LCD();
-    //write_string(0x00, "Final Term");
+    write_string(0x00, "Final Term");
 
     // DataFrame 테이블 초기화
     InitFormatTable();
@@ -49,8 +49,8 @@ void main() {
             tmpFloor = QueueFloorPop();
             if (tmpFloor != 0 && tmpFloor != CurrentFloor) {
                 TargetFloor = tmpFloor;
-                sprintf(TX, "<001011%d%d>", CurrentFloor / 1000, TargetFloor / 1000);
-                write_sci0(TX);
+                //sprintf(TX, "<001011%d%d>", CurrentFloor / 1000, TargetFloor / 1000);
+                //write_sci0(TX);
                 isMoving = TRUE;
             }
         }

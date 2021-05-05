@@ -13,6 +13,7 @@
 #define CODE_SET_CGRAM_ADDR(ADDR)   ((0x40)|((0x3F)&(ADDR)))
 #define CODE_SET_DDRAM_ADDR(ADDR)   ((0x80)|((0x7F)&(ADDR)))
 
+#define LCD_BUFFER_SIZE     17
 #define ENABLE_LCD()    (Regs.porta.bit.pta2 = 1)
 #define DISABLE_LCD()   (Regs.porta.bit.pta2 = 0)
 

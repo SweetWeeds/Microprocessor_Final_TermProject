@@ -4,8 +4,9 @@
 
 FloorNode* HeadFloor = NULL;
 FloorNode* TailFloor = NULL;
-unsigned char floor_buffer[9] = { 0, };
+u8 floor_buffer[9] = { 0, };
 u32 fb_idx = 0;
+extern u8 LCD_FIRST_LINE[];     // LCD 버퍼 첫번째 줄
 
 void QueueFloorClear() {
 	while (HeadFloor != NULL) {
@@ -15,7 +16,14 @@ void QueueFloorClear() {
 
 void QueueFloorPush(u32 data) {
 	FloorNode* newNode = NULL;
+    // 맨 마지막에 입력되었던 값과 일치 시 큐를 입력하지 않음.
+    if (QueueFloorEnd() == data || fb_idx > 8) return;
 	newNode = (FloorNode*)malloc(sizeof(FloorNode));
+    // floor_buffer 입력
+    floor_buffer[fb_idx++] = (data / 1000) + '0';
+    floor_buffer[fb_idx] = '\0';
+    sprintf(LCD_FIRST_LINE, "%-16s", floor_buffer);
+    write_string(0x00, LCD_FIRST_LINE);
 	// 동적할당 실패 체크
 	if (newNode == NULL) {
         //write_sci0("DA_Failed");
@@ -36,6 +44,7 @@ void QueueFloorPush(u32 data) {
 		newNode->nextNode = NULL;
 		TailFloor->nextNode = newNode;
 		TailFloor = newNode;
+        
 	}
 	// 예외 처리 (잘못된 핸들링)
 	else {
@@ -45,10 +54,21 @@ void QueueFloorPush(u32 data) {
 }
 
 u32 QueueFloorPop() {
+    u32 idx = 0;
 	// 헤드가 비어있지 않은 경우
 	if (HeadFloor != NULL) {
 		FloorNode* tmpNode = HeadFloor;
 		u32 data = tmpNode->data;
+        
+        // floor_buffer에서 제거 & LCD 반영
+        while (floor_buffer[idx] != 0) {
+            floor_buffer[idx] = floor_buffer[idx + 1];
+            idx++;
+        }
+        fb_idx--;
+        sprintf(LCD_FIRST_LINE, "%-16s", floor_buffer);
+        write_string(0x00, LCD_FIRST_LINE);
+
 		// 헤드와 테일이 일치 (남은 노드가 하나)
 		if (HeadFloor == TailFloor) {
 			HeadFloor = NULL;
@@ -78,6 +98,16 @@ u32 QueueFloorFront() {
 	else {
 		return 0;
 	}
+}
+
+// 큐 끝 조회
+u32 QueueFloorEnd() {
+    if (TailFloor != NULL) {
+        return TailFloor->data;
+    }
+    else {
+        return 0;
+    }
 }
 
 /* queue_floor.c */

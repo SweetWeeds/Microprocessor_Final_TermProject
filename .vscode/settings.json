@@ -4,6 +4,7 @@
         "control.h": "c",
         "rti.h": "c",
         "main.h": "c",
-        "interrupt.h": "c"
+        "interrupt.h": "c",
+        "queue_floor.h": "c"
     }
 }

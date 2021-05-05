@@ -16,7 +16,7 @@
 #include "seven_seg.h"
 #include "control.h"
 
-#define LCD_BUFFER_SIZE 17
+
 
 typedef unsigned char u8;
 

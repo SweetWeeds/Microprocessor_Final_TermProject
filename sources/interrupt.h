@@ -9,6 +9,8 @@
 #include "dataframe.h"
 #include "queue.h"
 #include "stdio.h"
+#include "stdlib.h"
+#include "led.h"
 
 #define xint_enable()  {asm andcc   #0xBF;}
 #define SW1_MASK_BIT 0x01

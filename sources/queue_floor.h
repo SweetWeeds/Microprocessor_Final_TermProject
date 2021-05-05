@@ -6,7 +6,9 @@
 #include "stdio.h"
 #include "stdlib.h"
 #include "dataframe.h"
+#include "lcd.h"
 
+typedef unsigned char u8;
 typedef unsigned int u32;
 
 typedef struct _FloorNode {
@@ -21,7 +23,7 @@ void QueueFloorClear();
 void QueueFloorPush(u32 data);
 u32 QueueFloorPop();
 u32 QueueFloorFront();
-
+u32 QueueFloorEnd();
 #endif /* QUEUE_FLOOR_H */
 
 /* queue_floor.h */
