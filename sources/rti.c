@@ -7,7 +7,6 @@ extern u8  isMoving;
 extern u8 floor_buffer[];
 extern u32 fb_idx;
 extern u8 LCD_FIRST_LINE[];
-//extern u32 pwm_period_offset;
 extern u32 pwm_period;	// 모터 주기
 extern u32 tmp_pwm_period;
 
@@ -41,7 +40,6 @@ void rti_service_ten_milli_sec() {
     static int isHigher = 0;            // 목적 층 > 현재 층: +, 목적 층 < 현재 층: -, 목적 층 == 현재 층: 0
     static u32 doorStatus = 0;          // 엘리베이터 문 열고 닫기 상태
     static int tcount = 0;              // 함수 호출 횟수
-    //static u32 pwm_period = LOW_SPEED;	// 모터 주기
     static int moving_time = 0;         // 이동시간 (10ms * moving_time)
     static int delta = 0;               // 이동 거리
     static int one_gauge = 0;           // 게이지 한 칸 기준
@@ -51,9 +49,7 @@ void rti_service_ten_milli_sec() {
 
     int left_time;
     u32 idx = 0;
-    //u32 tmp_pwm_period;    
 
-    
     if (!flag) {
         // 초기화
         flag = TRUE;

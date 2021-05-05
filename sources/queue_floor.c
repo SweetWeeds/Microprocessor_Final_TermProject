@@ -59,7 +59,6 @@ void QueueFloorPush(u32 data) {
 	}
 	// 예외 처리 (잘못된 핸들링)
 	else {
-        //write_sci0("Handling_Fault");
         return;
 	}
 }

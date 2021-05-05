@@ -56,15 +56,15 @@ typedef unsigned short u16;		// 2 Byte
 typedef unsigned int   u32;		// 4 Byte
 
 // 데이터 프레임
-struct _DataFrame {
+typedef struct _DataFrame {
 	u16 groupnum;
 	u16 cmdclass;
 	u16 cmdnum;
 	u16 dataformat;
 	u8 data[MAX_DATA_SIZE + 6];
-};
+} DataFrame;
 
-typedef struct _DataFrame DataFrame;
+//typedef struct _DataFrame DataFrame;
 
 /* Function Prototypes */
 void InitFormatTable();

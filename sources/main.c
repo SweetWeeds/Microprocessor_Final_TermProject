@@ -14,7 +14,7 @@ u32 pwm_period = LOW_SPEED;	// 모터 주기
 
 void main() {
     u32 pwm_period_offset = 0;          // pwm 속도 오프셋 (ATD를 통한 속도 제어)
-    u32 pre_pwm_period_offset = 1;	    //
+    u32 pre_pwm_period_offset = 1;
     u8 atd_val = 0;
 
     // 인터럽트 초기화
@@ -54,7 +54,6 @@ void main() {
         if (pre_pwm_period_offset != pwm_period_offset) {
             pre_pwm_period_offset = pwm_period_offset;
             sprintf(LCD_SECOND_LINE, "%d", pwm_period);
-            //write_sci0(LCD_SECOND_LINE);
             write_string(0x40, LCD_SECOND_LINE);
         }
 
