@@ -7,7 +7,7 @@
 #include "string.h"
 #include "stdlib.h"
 #include "exception.h"
-#include "lcd.h"
+//#include "lcd.h"
 
 #define MAX_FRAME_SIZE  24	// 최대 데이터 프레임 크기: 24바이트
 #define TIMEOUT_SIZE    MAX_FRAME_SIZE + 5  // Timtout 기준 : 최대 데이터 프레임 크기 + 5 이상
@@ -34,11 +34,13 @@
 // CMD Num
 #define CMD_STATE_CTRL_FLOOR   0  // 층수 변경
 #define CMD_STATE_UPDATE_PRINT 1  // 상태 출력
+
 #define CMD_PAUSE_CTRL_PAUSE   0  // 일시정지
-//#define CMD_BUFFER_CTRL_FILL        0  // 버퍼 채우기
+
 #define CMD_BUFFER_CTRL_ADD         0  // 버퍼 추가
-#define CMD_BUFFER_UPDATE_PRINT     1  // 버퍼 정보 출력
-#define CMD_BUFFER_CTRL_CLR         2  // 버퍼 비우기
+#define CMD_BUFFER_CTRL_PRINT       1  // 버퍼 정보 출력 요청
+#define CMD_BUFFER_UPDATE_PRINT     2  // 버퍼 정보 출력
+#define CMD_BUFFER_CTRL_CLR         3  // 버퍼 비우기
 
 #define ETX_VALID_BIT 0x00
 
@@ -56,7 +58,7 @@ typedef unsigned short u16;		// 2 Byte
 typedef unsigned int   u32;		// 4 Byte
 
 // 데이터 프레임
-typedef struct _DataFrame {
+typedef struct {
 	u16 groupnum;
 	u16 cmdclass;
 	u16 cmdnum;

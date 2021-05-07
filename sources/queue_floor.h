@@ -5,7 +5,6 @@
 
 #include "stdio.h"
 #include "stdlib.h"
-#include "dataframe.h"
 #include "lcd.h"
 
 typedef unsigned char u8;
@@ -19,7 +18,7 @@ typedef struct _FloorNode {
 
 //typedef struct _FloorNode FloorNode;
 
-void QueueFloorClear();
+u32 QueueFloorClear();
 void QueueFloorPush(u32 data);
 u32 QueueFloorPop();
 u32 QueueFloorFront();

@@ -7,6 +7,9 @@
         "interrupt.h": "c",
         "queue_floor.h": "c",
         "lcd.h": "c",
-        "atd.h": "c"
+        "atd.h": "c",
+        "queue.h": "c",
+        "sci.h": "c",
+        "exception.h": "c"
     }
 }

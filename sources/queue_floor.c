@@ -11,10 +11,13 @@ extern u32 CurrentFloor;
 extern u32 TargetFloor;
 extern u8 isMoving;
 
-void QueueFloorClear() {
+u32 QueueFloorClear() {
+    u32 ret = 0;
 	while (HeadFloor != NULL) {
 		QueueFloorPop();
+        ret++;
 	}
+    return ret;
 }
 
 void QueueFloorPush(u32 data) {

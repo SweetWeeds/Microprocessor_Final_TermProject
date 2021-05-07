@@ -64,6 +64,8 @@ void rti_service_ten_milli_sec() {
         gauge_cnt = 0;
         motor_stop = FALSE;
         init_pwm(isHigher > 0);    // 모터 방향 결정
+        sprintf(TX, "<001011%d%d>", CurrentFloor / 1000, TargetFloor / 1000);
+        write_sci0(TX);
     }
     else if (tcount < moving_time) {
         tcount++;
@@ -111,6 +113,13 @@ void rti_service_ten_milli_sec() {
         }
     }
     else {
+        // 버저
+        Regs.ddra.byte |= 0x80;
+        Regs.porta.bit.pta7 = 0b0;
+        ms_delay(30);
+        Regs.porta.bit.pta7 = 0b1;
+        Regs.ddra.byte &= 0x7F;
+
         // floor_buffer에서 제거 & LCD 반영
         while (floor_buffer[idx] != 0) {
             floor_buffer[idx] = floor_buffer[idx + 1];
@@ -123,14 +132,13 @@ void rti_service_ten_milli_sec() {
         pwm_disable();
         isMoving = FALSE;
         CurrentFloor = TargetFloor;
+        sprintf(TX, "<0010110%d>", CurrentFloor / 1000);
+        write_sci0(TX);
         motor_stop = FALSE;
 
         // 게이지 바 반영
         for (idx = 0; idx < 12; idx++)
             write_char(LCD_OFFSET + idx, ' ');
-
-        // 버저
-        Regs.porta.bit.pta7 = 0b0;
 
         flag = FALSE;
     }

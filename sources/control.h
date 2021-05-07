@@ -7,6 +7,7 @@
 #include "queue_floor.h"
 #include "rti.h"
 #include "lcd.h"
+#include "sci.h"
 #include "seven_seg.h"
 
 void STATE_CONTROL(struct _DataFrame* df);

@@ -2,6 +2,7 @@
 #define MAIN_H
 
 #include "projectglobals.h"
+#include "queue.h"
 #include "dataframe.h"
 #include "atd.h"
 #include "exception.h"
@@ -9,7 +10,6 @@
 #include "lcd.h"
 #include "led.h"
 #include "pwm.h"
-#include "queue.h"
 #include "queue_floor.h"
 #include "rti.h"
 #include "sci.h"

@@ -1,8 +1,6 @@
 
 //#include "main.h"
 #include "sci.h"
-#include "queue.h"
-
 
 unsigned char *txbuffer_sci0; //text를 저장하는 버퍼이다. 
 int txoffset_sci0;            //text문자열 길이를 알기위해 필요한 변수이다.

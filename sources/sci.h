@@ -4,9 +4,10 @@
 
 /*Includes*/
 #include "projectglobals.h"
+#include "queue.h"
 
 #define RX_BUFFER_SIZE 30
-#define TX_BUFFER_SIZE 20
+#define TX_BUFFER_SIZE 30
 #define SCICR1_INIT_DEFAULT 0x00
 #define SCICR2_INIT_DEFAULT 0x2c
 #define TIE_ENABLE 0x80

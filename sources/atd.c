@@ -27,6 +27,6 @@ int get_atd0(int channel)
 
 unsigned int convert_value(int cnt) {
     if (cnt <= VR_TWO) return 0;
-    else if (VR_TWO < cnt && cnt <= VR_SIX) return 6;
-    else return 12;
+    else if (VR_TWO < cnt && cnt <= VR_SIX) return 20;
+    else return 40;
 }
