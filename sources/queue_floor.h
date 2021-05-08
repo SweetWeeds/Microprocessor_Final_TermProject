@@ -21,6 +21,7 @@ typedef struct _FloorNode {
 u32 QueueFloorClear();
 void QueueFloorPush(u32 data);
 u32 QueueFloorPop();
+u32 QueueFloorDelete();
 u32 QueueFloorFront();
 u32 QueueFloorEnd();
 #endif /* QUEUE_FLOOR_H */

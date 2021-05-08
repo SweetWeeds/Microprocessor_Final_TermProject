@@ -41,7 +41,7 @@
 #define CMD_BUFFER_CTRL_ADD_MULTI   1  // 버퍼 여러개 추가
 #define CMD_BUFFER_CTRL_PRINT       2  // 버퍼 정보 출력 요청
 #define CMD_BUFFER_UPDATE_PRINT     3  // 버퍼 정보 출력
-#define CMD_BUFFER_CTRL_CLR         4  // 버퍼 비우기
+#define CMD_BUFFER_CTRL_DEL         4  // 버퍼 비우기
 
 #define ETX_VALID_BIT 0x00
 

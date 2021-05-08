@@ -72,8 +72,16 @@ u32 QueueFloorPop() {
     u32 idx = 0;
 	// 헤드가 비어있지 않은 경우
 	if (HeadFloor != NULL) {
-		FloorNode* tmpNode = HeadFloor;
+        FloorNode* tmpNode = HeadFloor;
 		u32 data = tmpNode->data;
+
+        for (idx = 0; idx < fb_idx; idx++) {
+            floor_buffer[idx] = floor_buffer[idx + 1];
+        }
+        fb_idx--;
+
+        sprintf(LCD_FIRST_LINE, "%-16s", floor_buffer);
+        write_string(0x00, LCD_FIRST_LINE);
 
 		// 헤드와 테일이 일치 (남은 노드가 하나)
 		if (HeadFloor == TailFloor) {
@@ -84,6 +92,37 @@ u32 QueueFloorPop() {
 		else {
 			HeadFloor = HeadFloor->nextNode;
 			HeadFloor->preNode = NULL;
+		}
+		free(tmpNode);
+		return data;
+	}
+	// 헤드가 빈 경우
+	else {
+		return 0;
+	}
+}
+
+// 뒤에서 제거
+u32 QueueFloorDelete() {
+    u32 idx = 0;
+	// Tail이 비어있지 않은 경우
+	if (TailFloor != NULL) {
+		FloorNode* tmpNode = TailFloor;
+		u32 data = tmpNode->data;
+
+        floor_buffer[--fb_idx] = 0;
+        sprintf(LCD_FIRST_LINE, "%-16s", floor_buffer);
+        write_string(0x00, LCD_FIRST_LINE);
+
+		// 헤드와 테일이 일치 (남은 노드가 하나)
+		if (HeadFloor == TailFloor) {
+			HeadFloor = NULL;
+			TailFloor = NULL;
+		}
+		// 헤드 != 테일 : 남은 노드가 2개 이상
+		else {
+			TailFloor = TailFloor->preNode;
+			TailFloor->nextNode = NULL;
 		}
 		free(tmpNode);
 		return data;

@@ -5,7 +5,6 @@ extern u32 TargetFloor;	    // 가고자 하는 층
 extern u32 CurrentFloor;	// 현재 층 (1층: 1000, 1~2층 사이: 1001~1999 ...)
 extern u8  isMoving;
 extern u8 floor_buffer[];
-extern u32 fb_idx;
 extern u8 LCD_FIRST_LINE[];
 extern u32 pwm_period;	// 모터 주기
 extern u32 tmp_pwm_period;
@@ -115,7 +114,7 @@ void rti_service_ten_milli_sec() {
     else {
         // QueueFloor에서 Pop
         QueueFloorPop();
-        
+
         // 버저
         Regs.ddra.byte |= 0x80;
         Regs.porta.bit.pta7 = 0b0;
@@ -123,12 +122,6 @@ void rti_service_ten_milli_sec() {
         Regs.porta.bit.pta7 = 0b1;
         Regs.ddra.byte &= 0x7F;
 
-        // floor_buffer에서 제거 & LCD 반영
-        while (floor_buffer[idx] != 0) {
-            floor_buffer[idx] = floor_buffer[idx + 1];
-            idx++;
-        }
-        fb_idx--;
         sprintf(LCD_FIRST_LINE, "%-16s", floor_buffer);
         write_string(0x00, LCD_FIRST_LINE);
 

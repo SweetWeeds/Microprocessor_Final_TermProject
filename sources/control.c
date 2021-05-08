@@ -50,21 +50,16 @@ void BUFFER_CONTROL(DataFrame* df) {
             df_tmp->dataformat = D1;
             df_tmp->data[0] = df->data[idx];
             QueuePush(df_tmp);
-            //QueueFloorPush((df->data[idx] - '0') * 1000);
         }
     }
     else if (df->cmdnum == CMD_BUFFER_CTRL_PRINT) {
         // 정보 출력
-        sprintf(TX, "<021025%d%-8s>", fb_idx, floor_buffer);
+        sprintf(TX, "<021025%d%-15s>", fb_idx, floor_buffer);
         write_sci0(TX);
     }
-    else if (df->cmdnum == CMD_BUFFER_CTRL_CLR) {
-        // 버퍼 비우기
-        deleted_qsize = QueueFloorClear();
-        while (deleted_qsize) {
-            fb_idx -= deleted_qsize;
-            floor_buffer[fb_idx] = 0;
-        }
-        write_string(0x00, floor_buffer);
+    else if (df->cmdnum == CMD_BUFFER_CTRL_DEL) {
+        // 뒤에서 버퍼 하나를 제거
+        if (fb_idx <= 1) return;
+        QueueFloorDelete();
     }
 }

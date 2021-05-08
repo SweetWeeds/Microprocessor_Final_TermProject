@@ -53,11 +53,11 @@ Entry point: 0x4029 (_Startup)
 _startupData is allocated at 0x4039 and uses 11 Bytes
 extern struct _tagStartup {
   unsigned flags          0
-  _PFunc   main           0x58BC    (main)
+  _PFunc   main           0x58C9    (main)
   long     stackOffset    0x1CBF
   unsigned nofZeroOut     1
   _Range   pZeroOut       0x1000     2240
-  _Copy    *toCopyDownBeg 0x6856
+  _Copy    *toCopyDownBeg 0x68A8
 } _startupData;
 
 *********************************************************************************************
@@ -67,10 +67,10 @@ Section Name                    Size  Type     From       To       Segment
 .init                             57     R     0x4000     0x4038   ROM_4000
 .startData                        15     R     0x4039     0x4047   ROM_4000
 .rodata                          223     R     0x4048     0x4126   ROM_4000
-.rodata1                          99     R     0x4127     0x4189   ROM_4000
-NON_BANKED                       228     R     0x418A     0x426D   ROM_4000
-.text                           8428     R     0x426E     0x6359   ROM_4000
-.copy                             17     R     0x6856     0x6866   ROM_4000
+.rodata1                         112     R     0x4127     0x4196   ROM_4000
+NON_BANKED                       228     R     0x4197     0x427A   ROM_4000
+.text                           8497     R     0x427B     0x63AB   ROM_4000
+.copy                             17     R     0x68A8     0x68B8   ROM_4000
 .data                             11   R/W     0x1000     0x100A   RAM
 .abs_section_0                    48   N/I        0x0       0x2F   .absSeg0
 .abs_section_30                    4   N/I       0x30       0x33   .absSeg1
@@ -97,12 +97,12 @@ NON_BANKED                       228     R     0x418A     0x426D   ROM_4000
 .bss                             127   R/W     0x100B     0x1089   RAM
 HEAP_SEGMENT                    2000   R/W     0x108A     0x1859   RAM
 .common                          102   R/W     0x185A     0x18BF   RAM
-RUNTIME                         1276     R     0x635A     0x6855   ROM_4000
+RUNTIME                         1276     R     0x63AC     0x68A7   ROM_4000
 .stack                          1024   R/W     0x18C0     0x1CBF   RAM
 .vectSeg22_vect                  116     R     0xFF8C     0xFFFF   .vectSeg22
 
 Summary of section sizes per section type:
-READ_ONLY (R):        28DB (dec:    10459)
+READ_ONLY (R):        292D (dec:    10541)
 READ_WRITE (R/W):      CC0 (dec:     3264)
 NO_INIT (N/I):         2AC (dec:      684)
 
@@ -110,63 +110,63 @@ NO_INIT (N/I):         2AC (dec:      684)
 VECTOR-ALLOCATION SECTION
     Address     InitValue   InitFunction
 ---------------------------------------------------------------------------------------------
-     0xFF8C        0x418A   pwm_shutdown_isr
-     0xFF8E        0x418E   portp_isr
-     0xFF90        0x4192   mscan4_tx_isr
-     0xFF92        0x4196   mscan4_rx_isr
-     0xFF94        0x419A   mscan4_error_isr
-     0xFF96        0x419E   mscan4_wakeup_isr
-     0xFF98        0x41A2   mscan3_tx_isr
-     0xFF9A        0x41A6   mscan3_rx_isr
-     0xFF9C        0x41AA   mscan3_error_isr
-     0xFF9E        0x41AE   mscan3_wakeup_isr
-     0xFFA0        0x41B2   mscan2_tx_isr
-     0xFFA2        0x41B6   mscan2_rx_isr
-     0xFFA4        0x41BA   mscan2_error_isr
-     0xFFA6        0x41BE   mscan2_wakeup_isr
-     0xFFA8        0x41C2   mscan1_tx_isr
-     0xFFAA        0x41C6   mscan1_rx_isr
-     0xFFAC        0x41CA   mscan1_error_isr
-     0xFFAE        0x41CE   mscan1_wakeup_isr
-     0xFFB0        0x41D2   mscan0_tx_isr
-     0xFFB2        0x41D6   mscan0_rx_isr
-     0xFFB4        0x41DA   mscan0_error_isr
-     0xFFB6        0x41DE   mscan0_wakeup_isr
-     0xFFB8        0x41E2   flash_isr
-     0xFFBA        0x41E6   eeprom_isr
-     0xFFBC        0x41EA   spi2_isr
-     0xFFBE        0x41EE   spi1_isr
-     0xFFC0        0x41F2   iic_isr
-     0xFFC2        0x41F6   bdlc_isr
-     0xFFC4        0x41FA   crg_scm_isr
-     0xFFC6        0x41FE   crg_pll_lock_isr
-     0xFFC8        0x4202   pa_b_overflow_isr
-     0xFFCA        0x4206   ect_mdc_isr
-     0xFFCC        0x420A   porth_isr
-     0xFFCE        0x420E   portj_isr
-     0xFFD0        0x4212   atd1_isr
-     0xFFD2        0x4216   atd0_isr
-     0xFFD4        0x421A   sci1_isr
-     0xFFD6        0x421E   sci0_isr
-     0xFFD8        0x4222   spi0_isr
-     0xFFDA        0x4226   pa_a_edge_isr
-     0xFFDC        0x422A   pa_a_overflow_isr
-     0xFFDE        0x422E   ect_overflow_isr
-     0xFFE0        0x4232   ect_ch7_isr
-     0xFFE2        0x4236   ect_ch6_isr
-     0xFFE4        0x423A   ect_ch5_isr
-     0xFFE6        0x423E   ect_ch4_isr
-     0xFFE8        0x4242   ect_ch3_isr
-     0xFFEA        0x4246   ect_ch2_isr
-     0xFFEC        0x424A   ect_ch1_isr
-     0xFFEE        0x424E   ect_ch0_isr
-     0xFFF0        0x4252   rti_isr
-     0xFFF2        0x4256   irq_isr
-     0xFFF4        0x425A   xirq_isr
-     0xFFF6        0x425E   swi_isr
-     0xFFF8        0x4262   trap_isr
-     0xFFFA        0x4266   cop_isr
-     0xFFFC        0x426A   clockmonitor_isr
+     0xFF8C        0x4197   pwm_shutdown_isr
+     0xFF8E        0x419B   portp_isr
+     0xFF90        0x419F   mscan4_tx_isr
+     0xFF92        0x41A3   mscan4_rx_isr
+     0xFF94        0x41A7   mscan4_error_isr
+     0xFF96        0x41AB   mscan4_wakeup_isr
+     0xFF98        0x41AF   mscan3_tx_isr
+     0xFF9A        0x41B3   mscan3_rx_isr
+     0xFF9C        0x41B7   mscan3_error_isr
+     0xFF9E        0x41BB   mscan3_wakeup_isr
+     0xFFA0        0x41BF   mscan2_tx_isr
+     0xFFA2        0x41C3   mscan2_rx_isr
+     0xFFA4        0x41C7   mscan2_error_isr
+     0xFFA6        0x41CB   mscan2_wakeup_isr
+     0xFFA8        0x41CF   mscan1_tx_isr
+     0xFFAA        0x41D3   mscan1_rx_isr
+     0xFFAC        0x41D7   mscan1_error_isr
+     0xFFAE        0x41DB   mscan1_wakeup_isr
+     0xFFB0        0x41DF   mscan0_tx_isr
+     0xFFB2        0x41E3   mscan0_rx_isr
+     0xFFB4        0x41E7   mscan0_error_isr
+     0xFFB6        0x41EB   mscan0_wakeup_isr
+     0xFFB8        0x41EF   flash_isr
+     0xFFBA        0x41F3   eeprom_isr
+     0xFFBC        0x41F7   spi2_isr
+     0xFFBE        0x41FB   spi1_isr
+     0xFFC0        0x41FF   iic_isr
+     0xFFC2        0x4203   bdlc_isr
+     0xFFC4        0x4207   crg_scm_isr
+     0xFFC6        0x420B   crg_pll_lock_isr
+     0xFFC8        0x420F   pa_b_overflow_isr
+     0xFFCA        0x4213   ect_mdc_isr
+     0xFFCC        0x4217   porth_isr
+     0xFFCE        0x421B   portj_isr
+     0xFFD0        0x421F   atd1_isr
+     0xFFD2        0x4223   atd0_isr
+     0xFFD4        0x4227   sci1_isr
+     0xFFD6        0x422B   sci0_isr
+     0xFFD8        0x422F   spi0_isr
+     0xFFDA        0x4233   pa_a_edge_isr
+     0xFFDC        0x4237   pa_a_overflow_isr
+     0xFFDE        0x423B   ect_overflow_isr
+     0xFFE0        0x423F   ect_ch7_isr
+     0xFFE2        0x4243   ect_ch6_isr
+     0xFFE4        0x4247   ect_ch5_isr
+     0xFFE6        0x424B   ect_ch4_isr
+     0xFFE8        0x424F   ect_ch3_isr
+     0xFFEA        0x4253   ect_ch2_isr
+     0xFFEC        0x4257   ect_ch1_isr
+     0xFFEE        0x425B   ect_ch0_isr
+     0xFFF0        0x425F   rti_isr
+     0xFFF2        0x4263   irq_isr
+     0xFFF4        0x4267   xirq_isr
+     0xFFF6        0x426B   swi_isr
+     0xFFF8        0x426F   trap_isr
+     0xFFFA        0x4273   cop_isr
+     0xFFFC        0x4277   clockmonitor_isr
      0xFFFE        0x4029   _Startup
 
 *********************************************************************************************
@@ -183,13 +183,13 @@ MODULE:                 -- START12.C.o --
      __SEG_END_SSTACK                          1CC0       0       0       1               
 MODULE:                 -- CTYPE.C.o (ansis.lib) --
 - PROCEDURES:
-     isdigit                                   426E       E      14       3   .text       
-     isspace                                   427C      17      23       6   .text       
-     toupper                                   4293      14      20       4   .text       
+     isdigit                                   427B       E      14       3   .text       
+     isspace                                   4289      17      23       6   .text       
+     toupper                                   42A0      14      20       4   .text       
 - VARIABLES:
 MODULE:                 -- HEAP.C.o (ansis.lib) --
 - PROCEDURES:
-     _heapcrash_                               42A7       C      12       3   .text       
+     _heapcrash_                               42B4       C      12       3   .text       
 - VARIABLES:
      _heap_                                    108A     7D0    2000       2   HEAP_SEGMENT
 MODULE:                 -- MATH.C.o (ansis.lib) --
@@ -198,11 +198,11 @@ MODULE:                 -- MATH.C.o (ansis.lib) --
      infinity                                  4048       4       4       2   .rodata     
 MODULE:                 -- PRINTF.C.o (ansis.lib) --
 - PROCEDURES:
-     Ten                                       42B3      AC     172       3   .text       
-     vprintf                                   435F     924    2340     110   .text       
-     _out                                      4C83       C      12      17   .text       
-     deposit_char                              4C8F       F      15       1   .text       
-     sprintf                                   4C9E      29      41       7   .text       
+     Ten                                       42C0      AC     172       3   .text       
+     vprintf                                   436C     924    2340     110   .text       
+     _out                                      4C90       C      12      17   .text       
+     deposit_char                              4C9C       F      15       1   .text       
+     sprintf                                   4CAB      29      41       9   .text       
 - VARIABLES:
      pow10                                     404C      28      40       6   .rodata     
      pow16                                     4074      20      32       4   .rodata     
@@ -212,160 +212,160 @@ MODULE:                 -- PRINTF.C.o (ansis.lib) --
      pbuf                                      100B       6       6      15   .bss        
 MODULE:                 -- SCANF.C.o (ansis.lib) --
 - PROCEDURES:
-     _getNum                                   4CC7      37      55       1   .text       
-     _copyList                                 4CFE      B5     181       1   .text       
-     vsscanf                                   4DB3     376     886      50   .text       
-     sscanf                                    5129      10      16       2   .text       
+     _getNum                                   4CD4      37      55       1   .text       
+     _copyList                                 4D0B      B5     181       1   .text       
+     vsscanf                                   4DC0     376     886      50   .text       
+     sscanf                                    5136      10      16       2   .text       
 - VARIABLES:
 MODULE:                 -- STDLIB.C.o (ansis.lib) --
 - PROCEDURES:
-     CheckCharWithBase                         5139      39      57       1   .text       
-     _strtoul                                  5172     170     368       8   .text       
-     _strtol                                   52E2      D0     208       3   .text       
-     _strtod                                   53B2     38A     906      20   .text       
+     CheckCharWithBase                         5146      39      57       1   .text       
+     _strtoul                                  517F     170     368       8   .text       
+     _strtol                                   52EF      D0     208       3   .text       
+     _strtod                                   53BF     38A     906      20   .text       
 - VARIABLES:
 MODULE:                 -- STRING.C.o (ansis.lib) --
 - PROCEDURES:
-     strlen                                    573C      14      20       2   .text       
+     strlen                                    5749      14      20       2   .text       
 - VARIABLES:
 MODULE:                 -- ALLOC.C.o (ansis.lib) --
 - PROCEDURES:
-     malloc                                    5750      A6     166       4   .text       
-     free                                      57F6      C4     196       5   .text       
+     malloc                                    575D      A6     166       4   .text       
+     free                                      5803      C4     196       6   .text       
 - VARIABLES:
      heap_end                                  1011       2       2       3   .bss        
      free_ptr                                  1013       2       2       8   .bss        
 MODULE:                 -- FADD.C.o (ansis.lib) --
 - PROCEDURES:
-     F_ADDKL                                   635A      67     103       1   RUNTIME     
-     _FADD                                     63C1      15      21       6   RUNTIME     
-     _FSUB                                     63D6      13      19       2   RUNTIME     
-     _FNEG                                     63E9       B      11       2   RUNTIME     
+     F_ADDKL                                   63AC      67     103       1   RUNTIME     
+     _FADD                                     6413      15      21       6   RUNTIME     
+     _FSUB                                     6428      13      19       2   RUNTIME     
+     _FNEG                                     643B       B      11       2   RUNTIME     
 - VARIABLES:
 MODULE:                 -- FANSI.C.o (ansis.lib) --
 - PROCEDURES:
-     F_FREXP                                   63F4      1F      31       1   RUNTIME     
-     frexpf                                    6413      19      25       1   RUNTIME     
+     F_FREXP                                   6446      1F      31       1   RUNTIME     
+     frexpf                                    6465      19      25       1   RUNTIME     
 - VARIABLES:
 MODULE:                 -- FCMP.C.o (ansis.lib) --
 - PROCEDURES:
-     _FCMP                                     642C      26      38       5   RUNTIME     
+     _FCMP                                     647E      26      38       5   RUNTIME     
 - VARIABLES:
 MODULE:                 -- FCONV.C.o (ansis.lib) --
 - PROCEDURES:
-     F_TOLONGK                                 6452      33      51       1   RUNTIME     
-     F_FRLONGK                                 6485      1F      31       2   RUNTIME     
-     _FSFLOAT                                  64A4      12      18       3   RUNTIME     
-     _FUFLOAT                                  64B6      12      18       1   RUNTIME     
-     _FSTRUNC                                  64C8      11      17       1   RUNTIME     
-     _FUTRUNC                                  64D9       3       3       2   RUNTIME     
+     F_TOLONGK                                 64A4      33      51       1   RUNTIME     
+     F_FRLONGK                                 64D7      1F      31       2   RUNTIME     
+     _FSFLOAT                                  64F6      12      18       3   RUNTIME     
+     _FUFLOAT                                  6508      12      18       1   RUNTIME     
+     _FSTRUNC                                  651A      11      17       1   RUNTIME     
+     _FUTRUNC                                  652B       3       3       2   RUNTIME     
 - VARIABLES:
 MODULE:                 -- FMUL.C.o (ansis.lib) --
 - PROCEDURES:
-     F_DIVKL                                   64DC      8E     142       1   RUNTIME     
-     F_MULKL                                   656A      58      88       1   RUNTIME     
-     _FMUL                                     65C2      14      20      10   RUNTIME     
-     _FDIV                                     65D6      1E      30       4   RUNTIME     
+     F_DIVKL                                   652E      8E     142       1   RUNTIME     
+     F_MULKL                                   65BC      58      88       1   RUNTIME     
+     _FMUL                                     6614      14      20      10   RUNTIME     
+     _FDIV                                     6628      1E      30       4   RUNTIME     
 - VARIABLES:
 MODULE:                 -- FREGS.C.o (ansis.lib) --
 - PROCEDURES:
-     F_PULK                                    65F4      15      21       4   RUNTIME     
-     F_PULL                                    6609      15      21       4   RUNTIME     
-     F_PSHK                                    661E      13      19       6   RUNTIME     
-     F_TLK                                     6631       D      13       1   RUNTIME     
-     F_XGKL                                    663E      21      33       2   RUNTIME     
-     F_CLRK                                    665F       B      11       2   RUNTIME     
-     F_MAXK                                    666A       9       9       2   RUNTIME     
-     F_NORMK                                   6673      3E      62       4   RUNTIME     
+     F_PULK                                    6646      15      21       4   RUNTIME     
+     F_PULL                                    665B      15      21       4   RUNTIME     
+     F_PSHK                                    6670      13      19       6   RUNTIME     
+     F_TLK                                     6683       D      13       1   RUNTIME     
+     F_XGKL                                    6690      21      33       2   RUNTIME     
+     F_CLRK                                    66B1       B      11       2   RUNTIME     
+     F_MAXK                                    66BC       9       9       2   RUNTIME     
+     F_NORMK                                   66C5      3E      62       4   RUNTIME     
 - VARIABLES:
 MODULE:                 -- rtshc12.c.o (ansis.lib) --
 - PROCEDURES:
-     _BDIVMODS                                 66B1       B      11       4   RUNTIME     
-     _LCMP_P                                   66BC      15      21       4   RUNTIME     
-     _LNEG                                     66D1       D      13       3   RUNTIME     
-     _LMULS16x32                               66DE      1F      31       1   RUNTIME     
-     _lDivMod                                  66FD      BE     190       2   RUNTIME     
-     _LDIVU                                    67BB       E      14       2   RUNTIME     
-     _NEG_P                                    67C9       F      15       1   RUNTIME     
-     _LMODU                                    67D8      11      17       1   RUNTIME     
-     _ILSEXT                                   67E9       7       7       7   RUNTIME     
-     _CASE_DIRECT_BYTE                         67F0       5       5       1   RUNTIME     
-     _CASE_CHECKED_BYTE                        67F5      14      20       5   RUNTIME     
-     _CASE_SEARCH_8                            6809      17      23       2   RUNTIME     
-     _CASE_SEARCH_8_BYTE                       6820      1A      26       1   RUNTIME     
+     _BDIVMODS                                 6703       B      11       4   RUNTIME     
+     _LCMP_P                                   670E      15      21       4   RUNTIME     
+     _LNEG                                     6723       D      13       3   RUNTIME     
+     _LMULS16x32                               6730      1F      31       1   RUNTIME     
+     _lDivMod                                  674F      BE     190       2   RUNTIME     
+     _LDIVU                                    680D       E      14       2   RUNTIME     
+     _NEG_P                                    681B       F      15       1   RUNTIME     
+     _LMODU                                    682A      11      17       1   RUNTIME     
+     _ILSEXT                                   683B       7       7       7   RUNTIME     
+     _CASE_DIRECT_BYTE                         6842       5       5       1   RUNTIME     
+     _CASE_CHECKED_BYTE                        6847      14      20       5   RUNTIME     
+     _CASE_SEARCH_8                            685B      17      23       2   RUNTIME     
+     _CASE_SEARCH_8_BYTE                       6872      1A      26       1   RUNTIME     
 - VARIABLES:
      errno                                     185A       2       2       3   .common     
 MODULE:                 -- VREGS.C.o (ansis.lib) --
 - PROCEDURES:
-     L_NEGK                                    683A       7       7       2   RUNTIME     
-     L_PSHK                                    6841       8       8       1   RUNTIME     
-     UL_PULK                                   6849       3       3       1   RUNTIME     
-     SL_PULK                                   684C       A      10       1   RUNTIME     
+     L_NEGK                                    688C       7       7       2   RUNTIME     
+     L_PSHK                                    6893       8       8       1   RUNTIME     
+     UL_PULK                                   689B       3       3       1   RUNTIME     
+     SL_PULK                                   689E       A      10       1   RUNTIME     
 - VARIABLES:
 MODULE:                 -- projectvectors.c.o --
 - PROCEDURES:
-     software_trap                             58BA       2       2      53   .text       
-     pwm_shutdown_isr                          418A       4       4       0   NON_BANKED  
-     portp_isr                                 418E       4       4       0   NON_BANKED  
-     mscan4_tx_isr                             4192       4       4       0   NON_BANKED  
-     mscan4_rx_isr                             4196       4       4       0   NON_BANKED  
-     mscan4_error_isr                          419A       4       4       0   NON_BANKED  
-     mscan4_wakeup_isr                         419E       4       4       0   NON_BANKED  
-     mscan3_tx_isr                             41A2       4       4       0   NON_BANKED  
-     mscan3_rx_isr                             41A6       4       4       0   NON_BANKED  
-     mscan3_error_isr                          41AA       4       4       0   NON_BANKED  
-     mscan3_wakeup_isr                         41AE       4       4       0   NON_BANKED  
-     mscan2_tx_isr                             41B2       4       4       0   NON_BANKED  
-     mscan2_rx_isr                             41B6       4       4       0   NON_BANKED  
-     mscan2_error_isr                          41BA       4       4       0   NON_BANKED  
-     mscan2_wakeup_isr                         41BE       4       4       0   NON_BANKED  
-     mscan1_tx_isr                             41C2       4       4       0   NON_BANKED  
-     mscan1_rx_isr                             41C6       4       4       0   NON_BANKED  
-     mscan1_error_isr                          41CA       4       4       0   NON_BANKED  
-     mscan1_wakeup_isr                         41CE       4       4       0   NON_BANKED  
-     mscan0_tx_isr                             41D2       4       4       0   NON_BANKED  
-     mscan0_rx_isr                             41D6       4       4       0   NON_BANKED  
-     mscan0_error_isr                          41DA       4       4       0   NON_BANKED  
-     mscan0_wakeup_isr                         41DE       4       4       0   NON_BANKED  
-     flash_isr                                 41E2       4       4       0   NON_BANKED  
-     eeprom_isr                                41E6       4       4       0   NON_BANKED  
-     spi2_isr                                  41EA       4       4       0   NON_BANKED  
-     spi1_isr                                  41EE       4       4       0   NON_BANKED  
-     iic_isr                                   41F2       4       4       0   NON_BANKED  
-     bdlc_isr                                  41F6       4       4       0   NON_BANKED  
-     crg_scm_isr                               41FA       4       4       0   NON_BANKED  
-     crg_pll_lock_isr                          41FE       4       4       0   NON_BANKED  
-     pa_b_overflow_isr                         4202       4       4       0   NON_BANKED  
-     ect_mdc_isr                               4206       4       4       0   NON_BANKED  
-     porth_isr                                 420A       4       4       0   NON_BANKED  
-     portj_isr                                 420E       4       4       0   NON_BANKED  
-     atd1_isr                                  4212       4       4       0   NON_BANKED  
-     atd0_isr                                  4216       4       4       0   NON_BANKED  
-     sci1_isr                                  421A       4       4       0   NON_BANKED  
-     sci0_isr                                  421E       4       4       0   NON_BANKED  
-     spi0_isr                                  4222       4       4       0   NON_BANKED  
-     pa_a_edge_isr                             4226       4       4       0   NON_BANKED  
-     pa_a_overflow_isr                         422A       4       4       0   NON_BANKED  
-     ect_overflow_isr                          422E       4       4       0   NON_BANKED  
-     ect_ch7_isr                               4232       4       4       0   NON_BANKED  
-     ect_ch6_isr                               4236       4       4       0   NON_BANKED  
-     ect_ch5_isr                               423A       4       4       0   NON_BANKED  
-     ect_ch4_isr                               423E       4       4       0   NON_BANKED  
-     ect_ch3_isr                               4242       4       4       0   NON_BANKED  
-     ect_ch2_isr                               4246       4       4       0   NON_BANKED  
-     ect_ch1_isr                               424A       4       4       0   NON_BANKED  
-     ect_ch0_isr                               424E       4       4       0   NON_BANKED  
-     rti_isr                                   4252       4       4       0   NON_BANKED  
-     irq_isr                                   4256       4       4       0   NON_BANKED  
-     xirq_isr                                  425A       4       4       0   NON_BANKED  
-     swi_isr                                   425E       4       4       0   NON_BANKED  
-     trap_isr                                  4262       4       4       0   NON_BANKED  
-     cop_isr                                   4266       4       4       0   NON_BANKED  
-     clockmonitor_isr                          426A       4       4       0   NON_BANKED  
+     software_trap                             58C7       2       2      53   .text       
+     pwm_shutdown_isr                          4197       4       4       0   NON_BANKED  
+     portp_isr                                 419B       4       4       0   NON_BANKED  
+     mscan4_tx_isr                             419F       4       4       0   NON_BANKED  
+     mscan4_rx_isr                             41A3       4       4       0   NON_BANKED  
+     mscan4_error_isr                          41A7       4       4       0   NON_BANKED  
+     mscan4_wakeup_isr                         41AB       4       4       0   NON_BANKED  
+     mscan3_tx_isr                             41AF       4       4       0   NON_BANKED  
+     mscan3_rx_isr                             41B3       4       4       0   NON_BANKED  
+     mscan3_error_isr                          41B7       4       4       0   NON_BANKED  
+     mscan3_wakeup_isr                         41BB       4       4       0   NON_BANKED  
+     mscan2_tx_isr                             41BF       4       4       0   NON_BANKED  
+     mscan2_rx_isr                             41C3       4       4       0   NON_BANKED  
+     mscan2_error_isr                          41C7       4       4       0   NON_BANKED  
+     mscan2_wakeup_isr                         41CB       4       4       0   NON_BANKED  
+     mscan1_tx_isr                             41CF       4       4       0   NON_BANKED  
+     mscan1_rx_isr                             41D3       4       4       0   NON_BANKED  
+     mscan1_error_isr                          41D7       4       4       0   NON_BANKED  
+     mscan1_wakeup_isr                         41DB       4       4       0   NON_BANKED  
+     mscan0_tx_isr                             41DF       4       4       0   NON_BANKED  
+     mscan0_rx_isr                             41E3       4       4       0   NON_BANKED  
+     mscan0_error_isr                          41E7       4       4       0   NON_BANKED  
+     mscan0_wakeup_isr                         41EB       4       4       0   NON_BANKED  
+     flash_isr                                 41EF       4       4       0   NON_BANKED  
+     eeprom_isr                                41F3       4       4       0   NON_BANKED  
+     spi2_isr                                  41F7       4       4       0   NON_BANKED  
+     spi1_isr                                  41FB       4       4       0   NON_BANKED  
+     iic_isr                                   41FF       4       4       0   NON_BANKED  
+     bdlc_isr                                  4203       4       4       0   NON_BANKED  
+     crg_scm_isr                               4207       4       4       0   NON_BANKED  
+     crg_pll_lock_isr                          420B       4       4       0   NON_BANKED  
+     pa_b_overflow_isr                         420F       4       4       0   NON_BANKED  
+     ect_mdc_isr                               4213       4       4       0   NON_BANKED  
+     porth_isr                                 4217       4       4       0   NON_BANKED  
+     portj_isr                                 421B       4       4       0   NON_BANKED  
+     atd1_isr                                  421F       4       4       0   NON_BANKED  
+     atd0_isr                                  4223       4       4       0   NON_BANKED  
+     sci1_isr                                  4227       4       4       0   NON_BANKED  
+     sci0_isr                                  422B       4       4       0   NON_BANKED  
+     spi0_isr                                  422F       4       4       0   NON_BANKED  
+     pa_a_edge_isr                             4233       4       4       0   NON_BANKED  
+     pa_a_overflow_isr                         4237       4       4       0   NON_BANKED  
+     ect_overflow_isr                          423B       4       4       0   NON_BANKED  
+     ect_ch7_isr                               423F       4       4       0   NON_BANKED  
+     ect_ch6_isr                               4243       4       4       0   NON_BANKED  
+     ect_ch5_isr                               4247       4       4       0   NON_BANKED  
+     ect_ch4_isr                               424B       4       4       0   NON_BANKED  
+     ect_ch3_isr                               424F       4       4       0   NON_BANKED  
+     ect_ch2_isr                               4253       4       4       0   NON_BANKED  
+     ect_ch1_isr                               4257       4       4       0   NON_BANKED  
+     ect_ch0_isr                               425B       4       4       0   NON_BANKED  
+     rti_isr                                   425F       4       4       0   NON_BANKED  
+     irq_isr                                   4263       4       4       0   NON_BANKED  
+     xirq_isr                                  4267       4       4       0   NON_BANKED  
+     swi_isr                                   426B       4       4       0   NON_BANKED  
+     trap_isr                                  426F       4       4       0   NON_BANKED  
+     cop_isr                                   4273       4       4       0   NON_BANKED  
+     clockmonitor_isr                          4277       4       4       0   NON_BANKED  
 - VARIABLES:
 MODULE:                 -- main.c.o --
 - PROCEDURES:
-     main                                      58BC      D4     212       2   .text       
+     main                                      58C9      D4     212       2   .text       
 - VARIABLES:
      STRING.SCI.OK.1                           4127       7       7       1   .rodata1    
      STRING..d.2                               412E       3       3       1   .rodata1    
@@ -378,7 +378,7 @@ MODULE:                 -- main.c.o --
      df                                        1016       2       2       7   .bss        
      RX                                        1018      1E      30       1   .bss        
      TX                                        1036      1E      30       8   .bss        
-     LCD_FIRST_LINE                            185C      11      17       4   .common     
+     LCD_FIRST_LINE                            185C      11      17       8   .common     
      LCD_SECOND_LINE                           186D      11      17       2   .common     
 MODULE:                 -- per_DP256_K79X.c.o --
 - PROCEDURES:
@@ -388,7 +388,7 @@ MODULE:                 -- per_DP256_K79X.c.o --
      Crg                                         34       C      12       5   .abs_section_34
      Tim0                                        40      40      64       0   .abs_section_40
      Atd0                                        80      20      32       6   .abs_section_80
-     Pwm                                         A0      28      40      21   .abs_section_a0
+     Pwm                                         A0      28      40      19   .abs_section_a0
      Sci0                                        C8       8       8       9   .abs_section_c8
      Sci1                                        D0       8       8       0   .abs_section_d0
      Spi0                                        D8       8       8       0   .abs_section_d8
@@ -407,15 +407,15 @@ MODULE:                 -- per_DP256_K79X.c.o --
      Can4                                       280      40      64       0   .abs_section_280
 MODULE:                 -- atd.c.o --
 - PROCEDURES:
-     init_atd0                                 5990      10      16       1   .text       
-     get_atd0                                  59A0       F      15       1   .text       
-     convert_value                             59AF      17      23       1   .text       
+     init_atd0                                 599D      10      16       1   .text       
+     get_atd0                                  59AD       F      15       1   .text       
+     convert_value                             59BC      17      23       1   .text       
 - VARIABLES:
 MODULE:                 -- dataframe.c.o --
 - PROCEDURES:
-     InitFormatTable                           59C6      64     100       1   .text       
-     DataCheck                                 5A2A      27      39       1   .text       
-     GetDataFrame                              5A51     10C     268       1   .text       
+     InitFormatTable                           59D3      65     101       1   .text       
+     DataCheck                                 5A38      27      39       1   .text       
+     GetDataFrame                              5A5F     10C     268       1   .text       
 - VARIABLES:
      BYTE_SIZE_TYPE                            4120       7       7       1   .rodata     
      STRING......s.1                           4131       7       7       1   .rodata1    
@@ -423,32 +423,32 @@ MODULE:                 -- dataframe.c.o --
      BYTE_SIZE_TABLE                           187E      3C      60       9   .common     
 MODULE:                 -- interrupt.c.o --
 - PROCEDURES:
-     ini_interrupt                             5B5D       C      12       1   .text       
-     interruptJ_function                       5B69      20      32       1   .text       
-     interruptX_function                       5B89       6       6       1   .text       
+     ini_interrupt                             5B6B       C      12       1   .text       
+     interruptJ_function                       5B77      20      32       1   .text       
+     interruptX_function                       5B97       6       6       1   .text       
 - VARIABLES:
 MODULE:                 -- lcd.c.o --
 - PROCEDURES:
-     init_LCD                                  5B8F      18      24       1   .text       
-     set_inst_register                         5BA7      26      38       6   .text       
-     write_data                                5BCD      26      38       1   .text       
-     write_string                              5BF3      2C      44       5   .text       
-     write_char                                5C1F      31      49       1   .text       
-     ms_delay                                  5C50      24      36       4   .text       
+     init_LCD                                  5B9D      18      24       1   .text       
+     set_inst_register                         5BB5      26      38       6   .text       
+     write_data                                5BDB      26      38       1   .text       
+     write_string                              5C01      2C      44       6   .text       
+     write_char                                5C2D      31      49       1   .text       
+     ms_delay                                  5C5E      24      36       4   .text       
 - VARIABLES:
 MODULE:                 -- led.c.o --
 - PROCEDURES:
-     init_led                                  5C74       E      14       1   .text       
-     set_led                                   5C82      15      21       1   .text       
-     set_door                                  5C97      34      52       3   .text       
+     init_led                                  5C82       E      14       1   .text       
+     set_led                                   5C90      15      21       1   .text       
+     set_door                                  5CA5      34      52       3   .text       
 - VARIABLES:
 MODULE:                 -- rti.c.o --
 - PROCEDURES:
-     rti_enable                                5CCB       4       4       1   .text       
-     rti_disable                               5CCF       4       4       1   .text       
-     init_rti                                  5CD3       8       8       1   .text       
-     rti_service_ten_milli_sec                 5CDB     246     582       9   .text       
-     rti_handler                               5F21      1D      29       1   .text       
+     rti_enable                                5CD9       4       4       1   .text       
+     rti_disable                               5CDD       4       4       1   .text       
+     init_rti                                  5CE1       8       8       1   .text       
+     rti_service_ten_milli_sec                 5CE9     22A     554       8   .text       
+     rti_handler                               5F13      1D      29       1   .text       
 - VARIABLES:
      STRING..001011.d.d..11                    414B       D      13       1   .rodata1    
      STRING...16s.12                           4158       6       6       1   .rodata1    
@@ -466,23 +466,23 @@ MODULE:                 -- rti.c.o --
      count.14                                  1071       2       2       3   .bss        
 MODULE:                 -- seven_seg.c.o --
 - PROCEDURES:
-     init_seven_seg                            5F3E       9       9       1   .text       
-     rotate_seg                                5F47      28      40       1   .text       
-     set_7segment                              5F6F      34      52       3   .text       
+     init_seven_seg                            5F30       9       9       1   .text       
+     rotate_seg                                5F39      28      40       1   .text       
+     set_7segment                              5F61      34      52       3   .text       
 - VARIABLES:
      rotate.1                                  100A       1       1       6   .data       
 MODULE:                 -- queue.c.o --
 - PROCEDURES:
-     QueuePush                                 5FA3      48      72       2   .text       
-     QueuePop                                  5FEB      32      50       1   .text       
+     QueuePush                                 5F95      48      72       2   .text       
+     QueuePop                                  5FDD      32      50       1   .text       
 - VARIABLES:
      Head                                      1073       2       2       7   .bss        
      Tail                                      1075       2       2       7   .bss        
 MODULE:                 -- sci.c.o --
 - PROCEDURES:
-     init_sci0                                 601D      15      21       1   .text       
-     write_sci0                                6032       7       7       5   .text       
-     sci0_handler                              6039      9C     156       1   .text       
+     init_sci0                                 600F      15      21       1   .text       
+     write_sci0                                6024       7       7       5   .text       
+     sci0_handler                              602B      9C     156       1   .text       
 - VARIABLES:
      rxoffset_sci0                             1077       2       2       9   .bss        
      ProtocolStart                             1079       1       1       5   .bss        
@@ -491,35 +491,37 @@ MODULE:                 -- sci.c.o --
      rxbuffer_sci0                             18BE       2       2      10   .common     
 MODULE:                 -- exception.c.o --
 - PROCEDURES:
-     ExceptionHandling                         60D5      14      20       5   .text       
+     ExceptionHandling                         60C7      14      20       5   .text       
 - VARIABLES:
      STRING..050000.d..1                       416A       B      11       1   .rodata1    
 MODULE:                 -- control.c.o --
 - PROCEDURES:
-     STATE_CONTROL                             60E9      26      38       1   .text       
-     PAUSE_CONTROL                             610F      25      37       1   .text       
-     BUFFER_CONTROL                            6134      B2     178       3   .text       
+     STATE_CONTROL                             60DB      26      38       1   .text       
+     PAUSE_CONTROL                             6101      25      37       1   .text       
+     BUFFER_CONTROL                            6126      99     153       2   .text       
 - VARIABLES:
-     STRING..021025.d..8s..1                   4175       F      15       1   .rodata1    
+     STRING..021025.d..15s..1                  4175      10      16       1   .rodata1    
 MODULE:                 -- queue_floor.c.o --
 - PROCEDURES:
-     QueueFloorClear                           61E6      16      22       1   .text       
-     QueueFloorPush                            61FC      BE     190       4   .text       
-     QueueFloorPop                             62BA      32      50       2   .text       
-     QueueFloorFront                           62EC       D      13       1   .text       
-     QueueFloorEnd                             62F9       D      13       1   .text       
+     QueueFloorPush                            61BF      BE     190       4   .text       
+     QueueFloorPop                             627D      6D     109       1   .text       
+     QueueFloorDelete                          62EA      5F      95       1   .text       
+     QueueFloorFront                           6349       D      13       1   .text       
+     QueueFloorEnd                             6356       D      13       1   .text       
 - VARIABLES:
-     STRING...16s.1                            4184       6       6       1   .rodata1    
-     HeadFloor                                 107A       2       2      11   .bss        
-     TailFloor                                 107C       2       2       8   .bss        
+     STRING...16s.1                            4185       6       6       1   .rodata1    
+     STRING...16s.2                            418B       6       6       1   .rodata1    
+     STRING...16s.3                            4191       6       6       1   .rodata1    
+     HeadFloor                                 107A       2       2      13   .bss        
+     TailFloor                                 107C       2       2      13   .bss        
      floor_buffer                              107E       A      10      10   .bss        
-     fb_idx                                    1088       2       2       9   .bss        
+     fb_idx                                    1088       2       2      10   .bss        
 MODULE:                 -- pwm.c.o --
 - PROCEDURES:
-     pwm_disable                               6306       5       5       3   .text       
-     pwm_enable                                630B       5       5       1   .text       
-     init_pwm                                  6310      28      40       1   .text       
-     set_pwm                                   6338      22      34       1   .text       
+     pwm_disable                               6363       5       5       3   .text       
+     pwm_enable                                6368       5       5       1   .text       
+     init_pwm                                  636D      28      40       1   .text       
+     set_pwm                                   6395      17      23       1   .text       
 - VARIABLES:
 
 *********************************************************************************************
@@ -547,18 +549,18 @@ MODULE STATISTIC
   main.c.o                                   107    212     10
   per_DP256_K79X.c.o                         684      0      0
   atd.c.o                                      0     54      0
-  dataframe.c.o                               60    407     33
+  dataframe.c.o                               60    408     33
   interrupt.c.o                                0     50      0
   lcd.c.o                                      0    229      0
   led.c.o                                      0     87      0
-  rti.c.o                                     31    627     31
+  rti.c.o                                     31    599     31
   seven_seg.c.o                                1    101      0
   queue.c.o                                    4    122      0
   sci.c.o                                      9    184      0
   exception.c.o                                0     20     11
-  control.c.o                                  0    253     15
-  queue_floor.c.o                             16    288      6
-  pwm.c.o                                      0     84      0
+  control.c.o                                  0    228     16
+  queue_floor.c.o                             16    420     18
+  pwm.c.o                                      0     73      0
   other                                     1024    131     17
 
 *********************************************************************************************
@@ -573,9 +575,9 @@ SECTION: ".text"
   write_char ms_delay init_led set_led set_door rti_enable rti_disable init_rti 
   rti_service_ten_milli_sec rti_handler init_seven_seg rotate_seg set_7segment 
   QueuePush QueuePop init_sci0 write_sci0 sci0_handler ExceptionHandling 
-  STATE_CONTROL PAUSE_CONTROL BUFFER_CONTROL QueueFloorClear QueueFloorPush 
-  QueueFloorPop QueueFloorFront QueueFloorEnd pwm_disable pwm_enable init_pwm 
-  set_pwm 
+  STATE_CONTROL PAUSE_CONTROL BUFFER_CONTROL QueueFloorPush QueueFloorPop 
+  QueueFloorDelete QueueFloorFront QueueFloorEnd pwm_disable pwm_enable 
+  init_pwm set_pwm 
 SECTION: ".data"
   TargetFloor CurrentFloor tmpFloor tmp_pwm_period pwm_period rotate.1 
 SECTION: ".bss"
@@ -590,7 +592,8 @@ SECTION: ".rodata"
 SECTION: ".rodata1"
   STRING.SCI.OK.1 STRING..d.2 STRING......s.1 STRING..2d.1d.2d.1d.....s.2 
   STRING..001011.d.d..11 STRING...16s.12 STRING..0010110.d..13 
-  STRING..050000.d..1 STRING..021025.d..8s..1 STRING...16s.1 
+  STRING..050000.d..1 STRING..021025.d..15s..1 STRING...16s.1 STRING...16s.2 
+  STRING...16s.3 
 SECTION: "NON_BANKED"
   pwm_shutdown_isr portp_isr mscan4_tx_isr mscan4_rx_isr mscan4_error_isr 
   mscan4_wakeup_isr mscan3_tx_isr mscan3_rx_isr mscan3_error_isr 
@@ -668,7 +671,7 @@ OBJECT LIST SORTED BY ADDRESS
      Crg                                         34       C      12       5   .abs_section_34
      Tim0                                        40      40      64       0   .abs_section_40
      Atd0                                        80      20      32       6   .abs_section_80
-     Pwm                                         A0      28      40      21   .abs_section_a0
+     Pwm                                         A0      28      40      19   .abs_section_a0
      Sci0                                        C8       8       8       9   .abs_section_c8
      Sci1                                        D0       8       8       0   .abs_section_d0
      Spi0                                        D8       8       8       0   .abs_section_d8
@@ -713,13 +716,13 @@ OBJECT LIST SORTED BY ADDRESS
      Tail                                      1075       2       2       7   .bss        
      rxoffset_sci0                             1077       2       2       9   .bss        
      ProtocolStart                             1079       1       1       5   .bss        
-     HeadFloor                                 107A       2       2      11   .bss        
-     TailFloor                                 107C       2       2       8   .bss        
+     HeadFloor                                 107A       2       2      13   .bss        
+     TailFloor                                 107C       2       2      13   .bss        
      floor_buffer                              107E       A      10      10   .bss        
-     fb_idx                                    1088       2       2       9   .bss        
+     fb_idx                                    1088       2       2      10   .bss        
      _heap_                                    108A     7D0    2000       2   HEAP_SEGMENT
      errno                                     185A       2       2       3   .common     
-     LCD_FIRST_LINE                            185C      11      17       4   .common     
+     LCD_FIRST_LINE                            185C      11      17       8   .common     
      LCD_SECOND_LINE                           186D      11      17       2   .common     
      BYTE_SIZE_TABLE                           187E      3C      60       9   .common     
      txbuffer_sci0                             18BA       2       2       5   .common     
@@ -742,173 +745,175 @@ OBJECT LIST SORTED BY ADDRESS
      STRING...16s.12                           4158       6       6       1   .rodata1    
      STRING..0010110.d..13                     415E       C      12       1   .rodata1    
      STRING..050000.d..1                       416A       B      11       1   .rodata1    
-     STRING..021025.d..8s..1                   4175       F      15       1   .rodata1    
-     STRING...16s.1                            4184       6       6       1   .rodata1    
-     pwm_shutdown_isr                          418A       4       4       0   NON_BANKED  
-     portp_isr                                 418E       4       4       0   NON_BANKED  
-     mscan4_tx_isr                             4192       4       4       0   NON_BANKED  
-     mscan4_rx_isr                             4196       4       4       0   NON_BANKED  
-     mscan4_error_isr                          419A       4       4       0   NON_BANKED  
-     mscan4_wakeup_isr                         419E       4       4       0   NON_BANKED  
-     mscan3_tx_isr                             41A2       4       4       0   NON_BANKED  
-     mscan3_rx_isr                             41A6       4       4       0   NON_BANKED  
-     mscan3_error_isr                          41AA       4       4       0   NON_BANKED  
-     mscan3_wakeup_isr                         41AE       4       4       0   NON_BANKED  
-     mscan2_tx_isr                             41B2       4       4       0   NON_BANKED  
-     mscan2_rx_isr                             41B6       4       4       0   NON_BANKED  
-     mscan2_error_isr                          41BA       4       4       0   NON_BANKED  
-     mscan2_wakeup_isr                         41BE       4       4       0   NON_BANKED  
-     mscan1_tx_isr                             41C2       4       4       0   NON_BANKED  
-     mscan1_rx_isr                             41C6       4       4       0   NON_BANKED  
-     mscan1_error_isr                          41CA       4       4       0   NON_BANKED  
-     mscan1_wakeup_isr                         41CE       4       4       0   NON_BANKED  
-     mscan0_tx_isr                             41D2       4       4       0   NON_BANKED  
-     mscan0_rx_isr                             41D6       4       4       0   NON_BANKED  
-     mscan0_error_isr                          41DA       4       4       0   NON_BANKED  
-     mscan0_wakeup_isr                         41DE       4       4       0   NON_BANKED  
-     flash_isr                                 41E2       4       4       0   NON_BANKED  
-     eeprom_isr                                41E6       4       4       0   NON_BANKED  
-     spi2_isr                                  41EA       4       4       0   NON_BANKED  
-     spi1_isr                                  41EE       4       4       0   NON_BANKED  
-     iic_isr                                   41F2       4       4       0   NON_BANKED  
-     bdlc_isr                                  41F6       4       4       0   NON_BANKED  
-     crg_scm_isr                               41FA       4       4       0   NON_BANKED  
-     crg_pll_lock_isr                          41FE       4       4       0   NON_BANKED  
-     pa_b_overflow_isr                         4202       4       4       0   NON_BANKED  
-     ect_mdc_isr                               4206       4       4       0   NON_BANKED  
-     porth_isr                                 420A       4       4       0   NON_BANKED  
-     portj_isr                                 420E       4       4       0   NON_BANKED  
-     atd1_isr                                  4212       4       4       0   NON_BANKED  
-     atd0_isr                                  4216       4       4       0   NON_BANKED  
-     sci1_isr                                  421A       4       4       0   NON_BANKED  
-     sci0_isr                                  421E       4       4       0   NON_BANKED  
-     spi0_isr                                  4222       4       4       0   NON_BANKED  
-     pa_a_edge_isr                             4226       4       4       0   NON_BANKED  
-     pa_a_overflow_isr                         422A       4       4       0   NON_BANKED  
-     ect_overflow_isr                          422E       4       4       0   NON_BANKED  
-     ect_ch7_isr                               4232       4       4       0   NON_BANKED  
-     ect_ch6_isr                               4236       4       4       0   NON_BANKED  
-     ect_ch5_isr                               423A       4       4       0   NON_BANKED  
-     ect_ch4_isr                               423E       4       4       0   NON_BANKED  
-     ect_ch3_isr                               4242       4       4       0   NON_BANKED  
-     ect_ch2_isr                               4246       4       4       0   NON_BANKED  
-     ect_ch1_isr                               424A       4       4       0   NON_BANKED  
-     ect_ch0_isr                               424E       4       4       0   NON_BANKED  
-     rti_isr                                   4252       4       4       0   NON_BANKED  
-     irq_isr                                   4256       4       4       0   NON_BANKED  
-     xirq_isr                                  425A       4       4       0   NON_BANKED  
-     swi_isr                                   425E       4       4       0   NON_BANKED  
-     trap_isr                                  4262       4       4       0   NON_BANKED  
-     cop_isr                                   4266       4       4       0   NON_BANKED  
-     clockmonitor_isr                          426A       4       4       0   NON_BANKED  
-     isdigit                                   426E       E      14       3   .text       
-     isspace                                   427C      17      23       6   .text       
-     toupper                                   4293      14      20       4   .text       
-     _heapcrash_                               42A7       C      12       3   .text       
-     Ten                                       42B3      AC     172       3   .text       
-     vprintf                                   435F     924    2340     110   .text       
-     _out                                      4C83       C      12      17   .text       
-     deposit_char                              4C8F       F      15       1   .text       
-     sprintf                                   4C9E      29      41       7   .text       
-     _getNum                                   4CC7      37      55       1   .text       
-     _copyList                                 4CFE      B5     181       1   .text       
-     vsscanf                                   4DB3     376     886      50   .text       
-     sscanf                                    5129      10      16       2   .text       
-     CheckCharWithBase                         5139      39      57       1   .text       
-     _strtoul                                  5172     170     368       8   .text       
-     _strtol                                   52E2      D0     208       3   .text       
-     _strtod                                   53B2     38A     906      20   .text       
-     strlen                                    573C      14      20       2   .text       
-     malloc                                    5750      A6     166       4   .text       
-     free                                      57F6      C4     196       5   .text       
-     software_trap                             58BA       2       2      53   .text       
-     main                                      58BC      D4     212       2   .text       
-     init_atd0                                 5990      10      16       1   .text       
-     get_atd0                                  59A0       F      15       1   .text       
-     convert_value                             59AF      17      23       1   .text       
-     InitFormatTable                           59C6      64     100       1   .text       
-     DataCheck                                 5A2A      27      39       1   .text       
-     GetDataFrame                              5A51     10C     268       1   .text       
-     ini_interrupt                             5B5D       C      12       1   .text       
-     interruptJ_function                       5B69      20      32       1   .text       
-     interruptX_function                       5B89       6       6       1   .text       
-     init_LCD                                  5B8F      18      24       1   .text       
-     set_inst_register                         5BA7      26      38       6   .text       
-     write_data                                5BCD      26      38       1   .text       
-     write_string                              5BF3      2C      44       5   .text       
-     write_char                                5C1F      31      49       1   .text       
-     ms_delay                                  5C50      24      36       4   .text       
-     init_led                                  5C74       E      14       1   .text       
-     set_led                                   5C82      15      21       1   .text       
-     set_door                                  5C97      34      52       3   .text       
-     rti_enable                                5CCB       4       4       1   .text       
-     rti_disable                               5CCF       4       4       1   .text       
-     init_rti                                  5CD3       8       8       1   .text       
-     rti_service_ten_milli_sec                 5CDB     246     582       9   .text       
-     rti_handler                               5F21      1D      29       1   .text       
-     init_seven_seg                            5F3E       9       9       1   .text       
-     rotate_seg                                5F47      28      40       1   .text       
-     set_7segment                              5F6F      34      52       3   .text       
-     QueuePush                                 5FA3      48      72       2   .text       
-     QueuePop                                  5FEB      32      50       1   .text       
-     init_sci0                                 601D      15      21       1   .text       
-     write_sci0                                6032       7       7       5   .text       
-     sci0_handler                              6039      9C     156       1   .text       
-     ExceptionHandling                         60D5      14      20       5   .text       
-     STATE_CONTROL                             60E9      26      38       1   .text       
-     PAUSE_CONTROL                             610F      25      37       1   .text       
-     BUFFER_CONTROL                            6134      B2     178       3   .text       
-     QueueFloorClear                           61E6      16      22       1   .text       
-     QueueFloorPush                            61FC      BE     190       4   .text       
-     QueueFloorPop                             62BA      32      50       2   .text       
-     QueueFloorFront                           62EC       D      13       1   .text       
-     QueueFloorEnd                             62F9       D      13       1   .text       
-     pwm_disable                               6306       5       5       3   .text       
-     pwm_enable                                630B       5       5       1   .text       
-     init_pwm                                  6310      28      40       1   .text       
-     set_pwm                                   6338      22      34       1   .text       
-     F_ADDKL                                   635A      67     103       1   RUNTIME     
-     _FADD                                     63C1      15      21       6   RUNTIME     
-     _FSUB                                     63D6      13      19       2   RUNTIME     
-     _FNEG                                     63E9       B      11       2   RUNTIME     
-     F_FREXP                                   63F4      1F      31       1   RUNTIME     
-     frexpf                                    6413      19      25       1   RUNTIME     
-     _FCMP                                     642C      26      38       5   RUNTIME     
-     F_TOLONGK                                 6452      33      51       1   RUNTIME     
-     F_FRLONGK                                 6485      1F      31       2   RUNTIME     
-     _FSFLOAT                                  64A4      12      18       3   RUNTIME     
-     _FUFLOAT                                  64B6      12      18       1   RUNTIME     
-     _FSTRUNC                                  64C8      11      17       1   RUNTIME     
-     _FUTRUNC                                  64D9       3       3       2   RUNTIME     
-     F_DIVKL                                   64DC      8E     142       1   RUNTIME     
-     F_MULKL                                   656A      58      88       1   RUNTIME     
-     _FMUL                                     65C2      14      20      10   RUNTIME     
-     _FDIV                                     65D6      1E      30       4   RUNTIME     
-     F_PULK                                    65F4      15      21       4   RUNTIME     
-     F_PULL                                    6609      15      21       4   RUNTIME     
-     F_PSHK                                    661E      13      19       6   RUNTIME     
-     F_TLK                                     6631       D      13       1   RUNTIME     
-     F_XGKL                                    663E      21      33       2   RUNTIME     
-     F_CLRK                                    665F       B      11       2   RUNTIME     
-     F_MAXK                                    666A       9       9       2   RUNTIME     
-     F_NORMK                                   6673      3E      62       4   RUNTIME     
-     _BDIVMODS                                 66B1       B      11       4   RUNTIME     
-     _LCMP_P                                   66BC      15      21       4   RUNTIME     
-     _LNEG                                     66D1       D      13       3   RUNTIME     
-     _LMULS16x32                               66DE      1F      31       1   RUNTIME     
-     _lDivMod                                  66FD      BE     190       2   RUNTIME     
-     _LDIVU                                    67BB       E      14       2   RUNTIME     
-     _NEG_P                                    67C9       F      15       1   RUNTIME     
-     _LMODU                                    67D8      11      17       1   RUNTIME     
-     _ILSEXT                                   67E9       7       7       7   RUNTIME     
-     _CASE_DIRECT_BYTE                         67F0       5       5       1   RUNTIME     
-     _CASE_CHECKED_BYTE                        67F5      14      20       5   RUNTIME     
-     _CASE_SEARCH_8                            6809      17      23       2   RUNTIME     
-     _CASE_SEARCH_8_BYTE                       6820      1A      26       1   RUNTIME     
-     L_NEGK                                    683A       7       7       2   RUNTIME     
-     L_PSHK                                    6841       8       8       1   RUNTIME     
-     UL_PULK                                   6849       3       3       1   RUNTIME     
-     SL_PULK                                   684C       A      10       1   RUNTIME     
+     STRING..021025.d..15s..1                  4175      10      16       1   .rodata1    
+     STRING...16s.1                            4185       6       6       1   .rodata1    
+     STRING...16s.2                            418B       6       6       1   .rodata1    
+     STRING...16s.3                            4191       6       6       1   .rodata1    
+     pwm_shutdown_isr                          4197       4       4       0   NON_BANKED  
+     portp_isr                                 419B       4       4       0   NON_BANKED  
+     mscan4_tx_isr                             419F       4       4       0   NON_BANKED  
+     mscan4_rx_isr                             41A3       4       4       0   NON_BANKED  
+     mscan4_error_isr                          41A7       4       4       0   NON_BANKED  
+     mscan4_wakeup_isr                         41AB       4       4       0   NON_BANKED  
+     mscan3_tx_isr                             41AF       4       4       0   NON_BANKED  
+     mscan3_rx_isr                             41B3       4       4       0   NON_BANKED  
+     mscan3_error_isr                          41B7       4       4       0   NON_BANKED  
+     mscan3_wakeup_isr                         41BB       4       4       0   NON_BANKED  
+     mscan2_tx_isr                             41BF       4       4       0   NON_BANKED  
+     mscan2_rx_isr                             41C3       4       4       0   NON_BANKED  
+     mscan2_error_isr                          41C7       4       4       0   NON_BANKED  
+     mscan2_wakeup_isr                         41CB       4       4       0   NON_BANKED  
+     mscan1_tx_isr                             41CF       4       4       0   NON_BANKED  
+     mscan1_rx_isr                             41D3       4       4       0   NON_BANKED  
+     mscan1_error_isr                          41D7       4       4       0   NON_BANKED  
+     mscan1_wakeup_isr                         41DB       4       4       0   NON_BANKED  
+     mscan0_tx_isr                             41DF       4       4       0   NON_BANKED  
+     mscan0_rx_isr                             41E3       4       4       0   NON_BANKED  
+     mscan0_error_isr                          41E7       4       4       0   NON_BANKED  
+     mscan0_wakeup_isr                         41EB       4       4       0   NON_BANKED  
+     flash_isr                                 41EF       4       4       0   NON_BANKED  
+     eeprom_isr                                41F3       4       4       0   NON_BANKED  
+     spi2_isr                                  41F7       4       4       0   NON_BANKED  
+     spi1_isr                                  41FB       4       4       0   NON_BANKED  
+     iic_isr                                   41FF       4       4       0   NON_BANKED  
+     bdlc_isr                                  4203       4       4       0   NON_BANKED  
+     crg_scm_isr                               4207       4       4       0   NON_BANKED  
+     crg_pll_lock_isr                          420B       4       4       0   NON_BANKED  
+     pa_b_overflow_isr                         420F       4       4       0   NON_BANKED  
+     ect_mdc_isr                               4213       4       4       0   NON_BANKED  
+     porth_isr                                 4217       4       4       0   NON_BANKED  
+     portj_isr                                 421B       4       4       0   NON_BANKED  
+     atd1_isr                                  421F       4       4       0   NON_BANKED  
+     atd0_isr                                  4223       4       4       0   NON_BANKED  
+     sci1_isr                                  4227       4       4       0   NON_BANKED  
+     sci0_isr                                  422B       4       4       0   NON_BANKED  
+     spi0_isr                                  422F       4       4       0   NON_BANKED  
+     pa_a_edge_isr                             4233       4       4       0   NON_BANKED  
+     pa_a_overflow_isr                         4237       4       4       0   NON_BANKED  
+     ect_overflow_isr                          423B       4       4       0   NON_BANKED  
+     ect_ch7_isr                               423F       4       4       0   NON_BANKED  
+     ect_ch6_isr                               4243       4       4       0   NON_BANKED  
+     ect_ch5_isr                               4247       4       4       0   NON_BANKED  
+     ect_ch4_isr                               424B       4       4       0   NON_BANKED  
+     ect_ch3_isr                               424F       4       4       0   NON_BANKED  
+     ect_ch2_isr                               4253       4       4       0   NON_BANKED  
+     ect_ch1_isr                               4257       4       4       0   NON_BANKED  
+     ect_ch0_isr                               425B       4       4       0   NON_BANKED  
+     rti_isr                                   425F       4       4       0   NON_BANKED  
+     irq_isr                                   4263       4       4       0   NON_BANKED  
+     xirq_isr                                  4267       4       4       0   NON_BANKED  
+     swi_isr                                   426B       4       4       0   NON_BANKED  
+     trap_isr                                  426F       4       4       0   NON_BANKED  
+     cop_isr                                   4273       4       4       0   NON_BANKED  
+     clockmonitor_isr                          4277       4       4       0   NON_BANKED  
+     isdigit                                   427B       E      14       3   .text       
+     isspace                                   4289      17      23       6   .text       
+     toupper                                   42A0      14      20       4   .text       
+     _heapcrash_                               42B4       C      12       3   .text       
+     Ten                                       42C0      AC     172       3   .text       
+     vprintf                                   436C     924    2340     110   .text       
+     _out                                      4C90       C      12      17   .text       
+     deposit_char                              4C9C       F      15       1   .text       
+     sprintf                                   4CAB      29      41       9   .text       
+     _getNum                                   4CD4      37      55       1   .text       
+     _copyList                                 4D0B      B5     181       1   .text       
+     vsscanf                                   4DC0     376     886      50   .text       
+     sscanf                                    5136      10      16       2   .text       
+     CheckCharWithBase                         5146      39      57       1   .text       
+     _strtoul                                  517F     170     368       8   .text       
+     _strtol                                   52EF      D0     208       3   .text       
+     _strtod                                   53BF     38A     906      20   .text       
+     strlen                                    5749      14      20       2   .text       
+     malloc                                    575D      A6     166       4   .text       
+     free                                      5803      C4     196       6   .text       
+     software_trap                             58C7       2       2      53   .text       
+     main                                      58C9      D4     212       2   .text       
+     init_atd0                                 599D      10      16       1   .text       
+     get_atd0                                  59AD       F      15       1   .text       
+     convert_value                             59BC      17      23       1   .text       
+     InitFormatTable                           59D3      65     101       1   .text       
+     DataCheck                                 5A38      27      39       1   .text       
+     GetDataFrame                              5A5F     10C     268       1   .text       
+     ini_interrupt                             5B6B       C      12       1   .text       
+     interruptJ_function                       5B77      20      32       1   .text       
+     interruptX_function                       5B97       6       6       1   .text       
+     init_LCD                                  5B9D      18      24       1   .text       
+     set_inst_register                         5BB5      26      38       6   .text       
+     write_data                                5BDB      26      38       1   .text       
+     write_string                              5C01      2C      44       6   .text       
+     write_char                                5C2D      31      49       1   .text       
+     ms_delay                                  5C5E      24      36       4   .text       
+     init_led                                  5C82       E      14       1   .text       
+     set_led                                   5C90      15      21       1   .text       
+     set_door                                  5CA5      34      52       3   .text       
+     rti_enable                                5CD9       4       4       1   .text       
+     rti_disable                               5CDD       4       4       1   .text       
+     init_rti                                  5CE1       8       8       1   .text       
+     rti_service_ten_milli_sec                 5CE9     22A     554       8   .text       
+     rti_handler                               5F13      1D      29       1   .text       
+     init_seven_seg                            5F30       9       9       1   .text       
+     rotate_seg                                5F39      28      40       1   .text       
+     set_7segment                              5F61      34      52       3   .text       
+     QueuePush                                 5F95      48      72       2   .text       
+     QueuePop                                  5FDD      32      50       1   .text       
+     init_sci0                                 600F      15      21       1   .text       
+     write_sci0                                6024       7       7       5   .text       
+     sci0_handler                              602B      9C     156       1   .text       
+     ExceptionHandling                         60C7      14      20       5   .text       
+     STATE_CONTROL                             60DB      26      38       1   .text       
+     PAUSE_CONTROL                             6101      25      37       1   .text       
+     BUFFER_CONTROL                            6126      99     153       2   .text       
+     QueueFloorPush                            61BF      BE     190       4   .text       
+     QueueFloorPop                             627D      6D     109       1   .text       
+     QueueFloorDelete                          62EA      5F      95       1   .text       
+     QueueFloorFront                           6349       D      13       1   .text       
+     QueueFloorEnd                             6356       D      13       1   .text       
+     pwm_disable                               6363       5       5       3   .text       
+     pwm_enable                                6368       5       5       1   .text       
+     init_pwm                                  636D      28      40       1   .text       
+     set_pwm                                   6395      17      23       1   .text       
+     F_ADDKL                                   63AC      67     103       1   RUNTIME     
+     _FADD                                     6413      15      21       6   RUNTIME     
+     _FSUB                                     6428      13      19       2   RUNTIME     
+     _FNEG                                     643B       B      11       2   RUNTIME     
+     F_FREXP                                   6446      1F      31       1   RUNTIME     
+     frexpf                                    6465      19      25       1   RUNTIME     
+     _FCMP                                     647E      26      38       5   RUNTIME     
+     F_TOLONGK                                 64A4      33      51       1   RUNTIME     
+     F_FRLONGK                                 64D7      1F      31       2   RUNTIME     
+     _FSFLOAT                                  64F6      12      18       3   RUNTIME     
+     _FUFLOAT                                  6508      12      18       1   RUNTIME     
+     _FSTRUNC                                  651A      11      17       1   RUNTIME     
+     _FUTRUNC                                  652B       3       3       2   RUNTIME     
+     F_DIVKL                                   652E      8E     142       1   RUNTIME     
+     F_MULKL                                   65BC      58      88       1   RUNTIME     
+     _FMUL                                     6614      14      20      10   RUNTIME     
+     _FDIV                                     6628      1E      30       4   RUNTIME     
+     F_PULK                                    6646      15      21       4   RUNTIME     
+     F_PULL                                    665B      15      21       4   RUNTIME     
+     F_PSHK                                    6670      13      19       6   RUNTIME     
+     F_TLK                                     6683       D      13       1   RUNTIME     
+     F_XGKL                                    6690      21      33       2   RUNTIME     
+     F_CLRK                                    66B1       B      11       2   RUNTIME     
+     F_MAXK                                    66BC       9       9       2   RUNTIME     
+     F_NORMK                                   66C5      3E      62       4   RUNTIME     
+     _BDIVMODS                                 6703       B      11       4   RUNTIME     
+     _LCMP_P                                   670E      15      21       4   RUNTIME     
+     _LNEG                                     6723       D      13       3   RUNTIME     
+     _LMULS16x32                               6730      1F      31       1   RUNTIME     
+     _lDivMod                                  674F      BE     190       2   RUNTIME     
+     _LDIVU                                    680D       E      14       2   RUNTIME     
+     _NEG_P                                    681B       F      15       1   RUNTIME     
+     _LMODU                                    682A      11      17       1   RUNTIME     
+     _ILSEXT                                   683B       7       7       7   RUNTIME     
+     _CASE_DIRECT_BYTE                         6842       5       5       1   RUNTIME     
+     _CASE_CHECKED_BYTE                        6847      14      20       5   RUNTIME     
+     _CASE_SEARCH_8                            685B      17      23       2   RUNTIME     
+     _CASE_SEARCH_8_BYTE                       6872      1A      26       1   RUNTIME     
+     L_NEGK                                    688C       7       7       2   RUNTIME     
+     L_PSHK                                    6893       8       8       1   RUNTIME     
+     UL_PULK                                   689B       3       3       1   RUNTIME     
+     SL_PULK                                   689E       A      10       1   RUNTIME     
 
 *********************************************************************************************
 UNUSED-OBJECTS SECTION
@@ -949,6 +954,8 @@ led.c.o:
   set_led_counter 
 queue.c.o:
   QueueFront 
+queue_floor.c.o:
+  QueueFloorClear 
 NOT USED VARIABLES
 CTYPE.C.o (ansis.lib):
   _ctype 
@@ -968,34 +975,34 @@ rti.c.o:
 *********************************************************************************************
 COPYDOWN SECTION
 ---------------------------------------------------------------------------------------------
-------- ROM-ADDRESS: 0x6856 ---- SIZE       4 ---
+------- ROM-ADDRESS: 0x68A8 ---- SIZE       4 ---
 Filling bytes inserted
  000B1000
-------- ROM-ADDRESS: 0x685A ---- RAM-ADDRESS: 0x1000 ---- SIZE       2 ---
+------- ROM-ADDRESS: 0x68AC ---- RAM-ADDRESS: 0x1000 ---- SIZE       2 ---
 Name of initialized Object : TargetFloor
  03E8
-------- ROM-ADDRESS: 0x685C ---- RAM-ADDRESS: 0x1002 ---- SIZE       2 ---
+------- ROM-ADDRESS: 0x68AE ---- RAM-ADDRESS: 0x1002 ---- SIZE       2 ---
 Name of initialized Object : CurrentFloor
  03E8
-------- ROM-ADDRESS: 0x685E ---- RAM-ADDRESS: 0x1004 ---- SIZE       2 ---
+------- ROM-ADDRESS: 0x68B0 ---- RAM-ADDRESS: 0x1004 ---- SIZE       2 ---
 Name of initialized Object : tmpFloor
  03E8
-------- ROM-ADDRESS: 0x6860 ---- SIZE       1 ---
+------- ROM-ADDRESS: 0x68B2 ---- SIZE       1 ---
 Filling bytes inserted
  00
-------- ROM-ADDRESS: 0x6861 ---- RAM-ADDRESS: 0x1007 ---- SIZE       1 ---
+------- ROM-ADDRESS: 0x68B3 ---- RAM-ADDRESS: 0x1007 ---- SIZE       1 ---
 Name of initialized Object : tmp_pwm_period:1
  FE
-------- ROM-ADDRESS: 0x6862 ---- SIZE       1 ---
+------- ROM-ADDRESS: 0x68B4 ---- SIZE       1 ---
 Filling bytes inserted
  00
-------- ROM-ADDRESS: 0x6863 ---- RAM-ADDRESS: 0x1009 ---- SIZE       1 ---
+------- ROM-ADDRESS: 0x68B5 ---- RAM-ADDRESS: 0x1009 ---- SIZE       1 ---
 Name of initialized Object : pwm_period:1
  FE
-------- ROM-ADDRESS: 0x6864 ---- RAM-ADDRESS: 0x100A ---- SIZE       1 ---
+------- ROM-ADDRESS: 0x68B6 ---- RAM-ADDRESS: 0x100A ---- SIZE       1 ---
 Name of initialized Object : rotate.1
  01
-------- ROM-ADDRESS: 0x6865 ---- SIZE       2 ---
+------- ROM-ADDRESS: 0x68B7 ---- SIZE       2 ---
 Filling bytes inserted
  0000
 
@@ -1116,7 +1123,7 @@ rti_service_ten_milli_sec USES flag.1 TargetFloor CurrentFloor isHigher.2
                                 rti_service_ten_milli_sec STRING..001011.d.d..11 TX sprintf write_sci0 
                                 pwm_period set_pwm gauge.8 write_string rotate_seg 
                                 set_7segment pwm_disable QueueFloorPop Regs ms_delay 
-                                floor_buffer fb_idx STRING...16s.12 LCD_FIRST_LINE isMoving 
+                                floor_buffer STRING...16s.12 LCD_FIRST_LINE isMoving 
                                 STRING..0010110.d..13 write_char 
 rti_handler               USES count.14 isMoving rti_service_ten_milli_sec Crg 
 init_seven_seg            USES Pim 
@@ -1132,13 +1139,15 @@ ExceptionHandling         USES STRING..050000.d..1 TX sprintf write_sci0
 STATE_CONTROL             USES CurrentFloor TargetFloor set_7segment 
 PAUSE_CONTROL             USES rti_enable pwm_enable rti_disable pwm_disable 
 BUFFER_CONTROL            USES BUFFER_CONTROL QueueFloorPush malloc QueuePush 
-                                floor_buffer fb_idx STRING..021025.d..8s..1 TX sprintf 
-                                write_sci0 QueueFloorClear write_string 
-QueueFloorClear           USES QueueFloorPop HeadFloor 
+                                floor_buffer fb_idx STRING..021025.d..15s..1 TX sprintf 
+                                write_sci0 QueueFloorDelete 
 QueueFloorPush            USES QueueFloorEnd fb_idx isMoving CurrentFloor 
                                 HeadFloor TargetFloor malloc floor_buffer STRING...16s.1 
                                 LCD_FIRST_LINE sprintf write_string TailFloor 
-QueueFloorPop             USES HeadFloor TailFloor free 
+QueueFloorPop             USES HeadFloor floor_buffer fb_idx STRING...16s.2 
+                                LCD_FIRST_LINE sprintf write_string TailFloor free 
+QueueFloorDelete          USES TailFloor fb_idx floor_buffer STRING...16s.3 
+                                LCD_FIRST_LINE sprintf write_string HeadFloor free 
 QueueFloorFront           USES HeadFloor 
 QueueFloorEnd             USES TailFloor 
 pwm_disable               USES Pwm 
@@ -1372,14 +1381,14 @@ DEPENDENCY TREE
  |  |  |  
  |  |  +- write_sci0           (see above)
  |  |  |  
- |  |  +- QueueFloorClear     
- |  |  |  | 
- |  |  |  +- QueueFloorPop       
- |  |  |     | 
- |  |  |     +- free                 (see above)
- |  |  |        
- |  |  +- write_string         (see above)
- |  |     
+ |  |  +- QueueFloorDelete    
+ |  |     | 
+ |  |     +- sprintf              (see above)
+ |  |     |  
+ |  |     +- write_string         (see above)
+ |  |     |  
+ |  |     +- free                 (see above)
+ |  |        
  |  +- free                 (see above)
  |     
  +- _Startup            
@@ -1436,8 +1445,14 @@ DEPENDENCY TREE
        |  
        +- pwm_disable          (see above)
        |  
-       +- QueueFloorPop        (see above)
-       |  
+       +- QueueFloorPop       
+       |  | 
+       |  +- sprintf              (see above)
+       |  |  
+       |  +- write_string         (see above)
+       |  |  
+       |  +- free                 (see above)
+       |     
        +- ms_delay             (see above)
        |  
        +- write_char          
@@ -1767,5 +1782,5 @@ STATISTIC SECTION
 ExeFile:
 --------
 Number of blocks to be downloaded: 6
-Total size of all blocks to be downloaded: 10459
+Total size of all blocks to be downloaded: 10541
 
