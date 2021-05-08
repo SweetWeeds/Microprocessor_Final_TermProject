@@ -60,7 +60,8 @@ void main() {
         // 현재 상태 체크
         if (!isMoving) {
             // 정지 중
-            tmpFloor = QueueFloorPop();
+            //tmpFloor = QueueFloorPop();
+            tmpFloor = QueueFloorFront();
             if (tmpFloor != 0 && tmpFloor != CurrentFloor) {
                 TargetFloor = tmpFloor;
                 isMoving = TRUE;

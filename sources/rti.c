@@ -113,6 +113,9 @@ void rti_service_ten_milli_sec() {
         }
     }
     else {
+        // QueueFloor에서 Pop
+        QueueFloorPop();
+        
         // 버저
         Regs.ddra.byte |= 0x80;
         Regs.porta.bit.pta7 = 0b0;

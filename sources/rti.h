@@ -10,6 +10,7 @@
 #include "led.h"
 #include "lcd.h"
 #include "control.h"
+#include "queue_floor.h"
 
 /*Macros*/
 #define DEFAULT_TIME_OUT    0x17

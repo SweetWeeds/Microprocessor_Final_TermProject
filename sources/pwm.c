@@ -27,43 +27,28 @@ void pwm_enable() {
 
 void init_pwm(u8 clockwise) {
     // 상: 시계 방향
-    if (clockwise) {
-        Pwm.pwme.byte = PWME0 | PWME1 | PWME2 | PWME3;
-        //Pwm.pwme.byte = ~(PWME0 | PWME1 | PWME2 | PWME3) ;  // PWM의 모든 채널(0~3)을 비활성화 한다.
 
-        Pwm.pwmpol.byte = PPOL0 | PPOL2;  // 각 채널의 극성을 설정한다. (A, B) -> /A/B -> A/B -> AB -> /AB
+    Pwm.pwme.byte = PWME0 | PWME1 | PWME2 | PWME3;
+    //Pwm.pwme.byte = ~(PWME0 | PWME1 | PWME2 | PWME3) ;  // PWM의 모든 채널(0~3)을 비활성화 한다.
 
-        Pwm.pwmclk.byte = 0x0;  // 각 채널의 클럭(A,B)을 선택한다.
+    Pwm.pwmpol.byte = clockwise ? (PPOL0 | PPOL2) : (PPOL0 | PPOL3);  // 각 채널의 극성을 설정한다. (A, B) -> /A/B -> A/B -> AB -> /AB
 
-        Pwm.pwmprclk.byte = PCKA | PCKB;  // 각 채널의 Clock Prescale 을 설정한다.
+    Pwm.pwmclk.byte = PCLK0 | PCLK1 | PCLK2 | PCLK3;  // 각 채널의 클럭(A,B)을 선택한다.
 
-        Pwm.pwmcae.byte = CAE0 | CAE1;  // 중앙 정렬(Center Align)할 채널을 설정한다. (A, /A)
+    Pwm.pwmprclk.byte = 0x00;  // 각 채널의 Clock Prescale 을 설정한다.
 
-        // PWM control
-        Pwm.pwmctl.byte = 0x00;
+    Pwm.pwmscla.byte = 125;
 
-        // shutdown
-        Pwm.pwmsdn.bit.pwm7en = 0;
-    }
-    // 하: 반시계 방향
-    else {
-        Pwm.pwme.byte = PWME0 | PWME1 | PWME2 | PWME3;
-        //Pwm.pwme.byte = ~(PWME0 | PWME1 | PWME2 | PWME3) ;  // PWM의 모든 채널(0~3)을 비활성화 한다.
+    Pwm.pwmsclb.byte = 125;
 
-        Pwm.pwmpol.byte = PPOL0 | PPOL3;  // 각 채널의 극성을 설정한다. (A, /B) -> /AB -> AB -> A/B -> /A/B
+    Pwm.pwmcae.byte = CAE0 | CAE1;  // 중앙 정렬(Center Align)할 채널을 설정한다. (A, /A)
 
-        Pwm.pwmclk.byte = 0x0;  // 각 채널의 클럭(A,B)을 선택한다.
+    // PWM control
+    Pwm.pwmctl.byte = 0x00;
 
-        Pwm.pwmprclk.byte = PCKA | PCKB;  // 각 채널의 Clock Prescale 을 설정한다.
+    // shutdown
+    Pwm.pwmsdn.bit.pwm7en = 0;
 
-        Pwm.pwmcae.byte = CAE0 | CAE1;  // 중앙 정렬(Center Align)할 채널을 설정한다. (A, /A)
-
-        // PWM control
-        Pwm.pwmctl.byte = 0x00;
-
-        // shutdown
-        Pwm.pwmsdn.bit.pwm7en = 0;
-    }
 }
 
 

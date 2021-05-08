@@ -23,8 +23,10 @@ u32 QueueFloorClear() {
 void QueueFloorPush(u32 data) {
 	FloorNode* newNode = NULL;
     /*********************** 예외 처리 ***********************/
+    // 데이터가 예상하지 못한 형태로 입력됨
+    if (data != 1000 && data != 2000 && data != 3000) return;
     // 맨 마지막에 입력되었던 값과 일치 시 큐를 입력하지 않음.
-    if (QueueFloorEnd() == data || fb_idx > 8) return;
+    if (QueueFloorEnd() == data || fb_idx >= 8) return;
     // 움직이지 않을때: 현재 층은 입력 X
     if (!isMoving && CurrentFloor == data) return;
     // 큐가 빈 경우: 목표로 하는 곳은 입력 X

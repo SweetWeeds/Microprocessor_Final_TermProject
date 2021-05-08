@@ -31,12 +31,30 @@ void PAUSE_CONTROL(DataFrame* df) {
 }
 
 void BUFFER_CONTROL(DataFrame* df) {
+    DataFrame *df_tmp = NULL;
     u32 deleted_qsize;
+    u32 add_size;
+    u32 idx;
     if (df->cmdnum == CMD_BUFFER_CTRL_ADD) {
         // 버퍼 추가
         QueueFloorPush((df->data[0] - '0') * 1000);
     }
+    else if (df->cmdnum == CMD_BUFFER_CTRL_ADD_MULTI) {
+        // 버퍼 여러개 추가
+        add_size = df->data[0] - '0';
+        for (idx = 1; idx <= add_size; idx++) {
+            df_tmp = (DataFrame *)malloc(sizeof(DataFrame));
+            df_tmp->groupnum = GROUP_BUFFER;
+            df_tmp->cmdclass = CMD_CLASS_CONTROL;
+            df_tmp->cmdnum = CMD_BUFFER_CTRL_ADD;
+            df_tmp->dataformat = D1;
+            df_tmp->data[0] = df->data[idx];
+            QueuePush(df_tmp);
+            //QueueFloorPush((df->data[idx] - '0') * 1000);
+        }
+    }
     else if (df->cmdnum == CMD_BUFFER_CTRL_PRINT) {
+        // 정보 출력
         sprintf(TX, "<021025%d%-8s>", fb_idx, floor_buffer);
         write_sci0(TX);
     }
@@ -47,8 +65,6 @@ void BUFFER_CONTROL(DataFrame* df) {
             fb_idx -= deleted_qsize;
             floor_buffer[fb_idx] = 0;
         }
-        //write_sci0("lcd_s");
         write_string(0x00, floor_buffer);
-        //write_sci0("lcd_e");
     }
 }
